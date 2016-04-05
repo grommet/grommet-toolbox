@@ -1,6 +1,7 @@
 import env from 'gulp-env';
 import istanbul from 'gulp-babel-istanbul';
 import tape from 'gulp-tape';
+import gulpif from 'gulp-if';
 import tapSpec from 'tap-spec';
 
 import gulpOptionsBuilder from './gulp-options-builder';
@@ -15,14 +16,19 @@ export function testTasks (gulp, opts) {
 
   const options = gulpOptionsBuilder(opts);
 
+  let watch;
+
   gulp.task('test', () => {
+    if (watch) {
+      process.env.NODE_ENV = 'test';
+    }
     if (options.testPaths) {
       return gulp.src(options.testPaths)
-        .pipe(envs)
+        .pipe(gulpif(!watch, envs))
         .pipe(tape({
           reporter: tapSpec()
         }))
-        .pipe(envs.reset);
+        .pipe(gulpif(!watch, envs.reset));
     }
   });
 
@@ -30,9 +36,10 @@ export function testTasks (gulp, opts) {
     gulp.watch([...options.testPaths, ...options.jsAssets], ['test'])
   );
 
-  gulp.task('test:watch', () =>
-    runSequence('test', 'test:watcher')
-  );
+  gulp.task('test:watch', () => {
+    watch = true;
+    runSequence('test', 'test:watcher');
+  });
 
   gulp.task('test:coverage', (done) => {
     if (options.testPaths) {
