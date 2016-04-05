@@ -33,7 +33,7 @@ export function devTasks (gulp, opts) {
   gulp.task('dev', ['dev-preprocess'], () => {
 
     let webpackConfigPath = path.resolve(
-      __dirname, 'webpack.dev.config.babel.js'
+      __dirname, 'webpack.dev.config.js'
     );
 
     if (argv.config) {

@@ -39,7 +39,7 @@ export function distTasks (gulp, opts) {
   gulp.task('dist', ['dist-preprocess'], () => {
 
     let webpackConfigPath = path.resolve(
-      __dirname, 'webpack.dist.config.babel.js'
+      __dirname, 'webpack.dist.config.js'
     );
 
     if (argv.config) {
