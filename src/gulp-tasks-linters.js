@@ -11,13 +11,17 @@ export function linterTasks (gulp, opts) {
   const options = gulpOptionsBuilder(opts);
 
   let scssLintPath = path.resolve(process.cwd(), '.scss-lint.yml');
-  if (!fs.statSync(scssLintPath)) {
-    scssLintPath = path.resolve(__dirname, '.scss-lint.yml');
+  try {
+    fs.accessSync(scssLintPath, fs.F_OK);
+  } catch (e) {
+    scssLintPath = path.resolve(__dirname, '../.scss-lint.yml');
   }
 
   let esLintPath = path.resolve(process.cwd(), '.eslintrc');
-  if (!fs.statSync(esLintPath)) {
-    esLintPath = path.resolve(__dirname, '.eslintrc');
+  try {
+    fs.accessSync(esLintPath, fs.F_OK);
+  } catch (e) {
+    esLintPath = path.resolve(__dirname, '../.eslintrc');
   }
 
   const customEslint = options.customEslintPath ?

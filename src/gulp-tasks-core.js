@@ -33,7 +33,9 @@ export function coreTasks (gulp, opts) {
           }
 
           let babelrcPath = path.resolve(process.cwd(), '.babelrc');
-          if (!fs.statSync(babelrcPath)) {
+          try {
+            fs.accessSync(babelrcPath, fs.F_OK);
+          } catch (e) {
             babelrcPath = path.resolve(__dirname, '.babelrc');
           }
 
