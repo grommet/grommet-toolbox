@@ -3,13 +3,13 @@ import rsync from 'gulp-rsync';
 import gulpOptionsBuilder from './gulp-options-builder';
 import gulpTasksCore from './gulp-tasks-core';
 
-export function syncTasks (gulp) {
+export function syncTasks (gulp, opts) {
 
   const runSequence = require('run-sequence').use(gulp);
 
   gulpTasksCore(gulp);
 
-  const options = gulpOptionsBuilder();
+  const options = gulpOptionsBuilder(opts);
 
   gulp.task('syncPre', (callback) => runSequence('dist', callback));
 

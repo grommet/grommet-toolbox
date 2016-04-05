@@ -11,7 +11,7 @@ import pathIsAbsolute from 'path-is-absolute';
 import gulpOptionsBuilder from './gulp-options-builder';
 
 let loaded;
-export function coreTasks (gulp) {
+export function coreTasks (gulp, opts) {
   if (!loaded) {
     const runSequence = require('run-sequence').use(gulp);
 
@@ -32,15 +32,16 @@ export function coreTasks (gulp) {
             });
           }
 
+          let babelrcPath = path.resolve(process.cwd(), '.babelrc');
+          if (!fs.statSync(babelrcPath)) {
+            babelrcPath = path.resolve(__dirname, '.babelrc');
+          }
+
+          const babelConfig = JSON.parse(fs.readFileSync(babelrcPath));
+
           gulp.src(assets, {
             dot: true
-          }).pipe(gulpif(copyAsset.babel, babel({
-            "presets": [ "es2015", "react" ],
-            "plugins": [
-              "transform-object-rest-spread",
-              "add-module-exports"
-            ]
-          })))
+          }).pipe(gulpif(copyAsset.babel, babel(babelConfig)))
           .pipe(gulp.dest(copyAsset.dist ? copyAsset.dist : options.dist));
         }
 
@@ -155,7 +156,7 @@ export function coreTasks (gulp) {
     loaded = true;
   }
 
-  const options = gulpOptionsBuilder();
+  const options = gulpOptionsBuilder(opts);
 
   if (options.base) {
     process.chdir(options.base);

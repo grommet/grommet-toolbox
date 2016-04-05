@@ -2,13 +2,14 @@ import path from 'path';
 import fs from 'fs';
 
 let options;
-
-export default function() {
+export function getOptions (opts) {
   if (!options) {
-    let opts;
-    const configPath = path.resolve(process.cwd(), 'grommet-toolbox.config.js');
-    if (fs.statSync(configPath)) {
-      opts = require(configPath).default;
+    if (!opts) {
+      const configPath = path.resolve(process.cwd(), 'grommet-toolbox.config.js');
+      if (fs.statSync(configPath)) {
+        const config = require(configPath);
+        opts = config.default || config;
+      }
     }
 
     options = opts || {};
@@ -24,6 +25,7 @@ export default function() {
     };
 
     options.webpackConfig = {
+      entry: path.resolve(options.mainJs),
       output: {
         filename: 'index.js'
       },
@@ -76,3 +78,5 @@ export default function() {
 
   return options;
 };
+
+export default getOptions;

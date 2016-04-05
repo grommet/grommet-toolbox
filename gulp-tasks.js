@@ -5,14 +5,13 @@ import gulpTasksDev from './gulp-tasks-dev';
 import gulpTasksSync from './gulp-tasks-sync';
 import gulpTasksCore from './gulp-tasks-core';
 
+export default function (gulp, options) {
 
-export default function (gulp) {
-
-  gulpTasksCore(gulp);
-  gulpTasksLinters(gulp);
-  gulpTasksTest(gulp);
-  gulpTasksDist(gulp);
-  gulpTasksDev(gulp);
-  gulpTasksSync(gulp);
+  gulpTasksCore(gulp, options);
+  gulpTasksLinters(gulp, options);
+  gulpTasksTest(gulp, options);
+  gulpTasksDist(gulp, options);
+  gulpTasksDev(gulp, options);
+  gulpTasksSync(gulp, options);
 
 };

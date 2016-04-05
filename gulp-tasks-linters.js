@@ -1,16 +1,25 @@
 import path from 'path';
+import fs from 'fs';
 import eslint from 'gulp-eslint';
 import shelljs from 'shelljs';
 import deepAssign from 'deep-assign';
 
 import gulpOptionsBuilder from './gulp-options-builder';
 
-export function linterTasks (gulp) {
+export function linterTasks (gulp, opts) {
 
-  const options = gulpOptionsBuilder();
+  const options = gulpOptionsBuilder(opts);
 
-  const scssLintPath = path.resolve(__dirname, '.scss-lint.yml');
-  const esLintPath = path.resolve(__dirname, '.eslintrc');
+  let scssLintPath = path.resolve(process.cwd(), '.scss-lint.yml');
+  if (!fs.statSync(scssLintPath)) {
+    scssLintPath = path.resolve(__dirname, '.scss-lint.yml');
+  }
+
+  let esLintPath = path.resolve(process.cwd(), '.eslintrc');
+  if (!fs.statSync(esLintPath)) {
+    esLintPath = path.resolve(__dirname, '.eslintrc');
+  }
+
   const customEslint = options.customEslintPath ?
     require(options.customEslintPath) : {};
 

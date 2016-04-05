@@ -1,21 +1,26 @@
 import webpack from 'webpack';
+import yargs from 'yargs';
+const argv = yargs.argv;
 import WebpackDevServer from 'webpack-dev-server';
 import gulpOpen from 'gulp-open';
 import path from 'path';
-import deepAssign from 'deep-assign';
 
 import gulpOptionsBuilder from './gulp-options-builder';
 import gulpTasksCore from './gulp-tasks-core';
+import gulpTasksTest from './gulp-tasks-test';
+import gulpTasksLinters from './gulp-tasks-linters';
 
-export function devTasks (gulp) {
+export function devTasks (gulp, opts) {
 
   const runSequence = require('run-sequence').use(gulp);
 
-  gulpTasksCore(gulp);
-  const options = gulpOptionsBuilder();
+  gulpTasksCore(gulp, opts);
+  gulpTasksTest(gulp, opts);
+  gulpTasksLinters(gulp, opts);
+
+  const options = gulpOptionsBuilder(opts);
 
   gulp.task('dev-preprocess', (callback) => {
-    const argv = require('yargs').argv;
     if (argv.skipPreprocess) {
       callback();
     } else if (options.devPreprocess) {
@@ -27,70 +32,15 @@ export function devTasks (gulp) {
 
   gulp.task('dev', ['dev-preprocess'], () => {
 
-    const env = deepAssign({}, options.env, {
-      __DEV_MODE__: true,
-      NODE_ENV: '"development"'
-    });
-
-    const devWebpackConfig = deepAssign({}, options.webpackConfig, {
-      entry: {
-        app: [
-          'webpack-dev-server/client?http://' + (options.devServerHost || 'localhost')  + ':' + (options.devServerPort || '8080'),
-          'webpack/hot/only-dev-server',
-          './' + options.mainJs
-        ]
-      },
-
-      output: {
-        filename: 'index.js',
-        path: options.dist,
-        publicPath: '/'
-      },
-
-      devtool: 'eval'
-
-    }, options.webpack || {});
-
-    if (!devWebpackConfig.resolve) {
-      devWebpackConfig.resolve = {};
-    }
-
-    if (!devWebpackConfig.resolveLoader) {
-      devWebpackConfig.resolveLoader = {};
-    }
-
-    devWebpackConfig.module.loaders = webpackConfig.module.loaders;
-    if (options.webpack.module && options.webpack.module.loaders) {
-      options.webpack.module.loaders.forEach((loader) =>
-        devWebpackConfig.module.loaders.push(loader)
-      );
-    }
-
-    devWebpackConfig.plugins = [
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.DefinePlugin(env)
-    ];
-
-    if (options.webpack.plugins) {
-      options.webpack.plugins.forEach((plugin) =>
-        devWebpackConfig.plugins.push(plugin)
-      );
-    }
-
-    devWebpackConfig.resolve.extensions = deepAssign(
-      devWebpackConfig.resolve.extensions || [],
-      ['', '.js', '.json', '.htm', '.html', '.scss', '.md', '.svg']
+    let webpackConfigPath = path.resolve(
+      __dirname, 'webpack.dev.config.babel.js'
     );
 
-    devWebpackConfig.resolve.modulesDirectories = deepAssign(
-      devWebpackConfig.resolve.modulesDirectories || [],
-      ['node_modules/grommet/node_modules', 'node_modules']
-    );
+    if (argv.config) {
+      webpackConfigPath = path.resolve(argv.config);
+    }
 
-    devWebpackConfig.resolveLoader.modulesDirectories = deepAssign(
-      devWebpackConfig.resolveLoader.modulesDirectories || [],
-      ['node_modules/grommet/node_modules', 'node_modules']
-    );
+    const config = require(webpackConfigPath);
 
     const devServerConfig = {
       contentBase: options.dist,
@@ -99,7 +49,7 @@ export function devTasks (gulp) {
       stats: {
         colors: true
       },
-      publicPath: devWebpackConfig.output.publicPath,
+      publicPath: config.output.publicPath,
       historyApiFallback: true
     };
 
@@ -112,7 +62,7 @@ export function devTasks (gulp) {
     }
 
     var server = new WebpackDevServer(
-      webpack(devWebpackConfig), devServerConfig
+      webpack(config), devServerConfig
     );
     server.use('/', (req, res, next) => {
 
