@@ -61,15 +61,17 @@ export function devTasks (gulp, opts) {
       devServerConfig.proxy = options.devServerProxy;
     }
 
-    var server = new WebpackDevServer(
+    const server = new WebpackDevServer(
       webpack(config), devServerConfig
     );
     server.use('/', (req, res, next) => {
 
-      var acceptLanguageHeader = req.headers['accept-language'];
+      const acceptLanguageHeader = req.headers['accept-language'];
 
       if (acceptLanguageHeader) {
-        var acceptedLanguages = acceptLanguageHeader.match(/[a-zA-z\-]{2,10}/g);
+        const acceptedLanguages = acceptLanguageHeader.match(
+          /[a-zA-z\-]{2,10}/g
+        );
         if (acceptedLanguages) {
           res.cookie('languages', JSON.stringify(acceptedLanguages));
         }
@@ -95,16 +97,16 @@ export function devTasks (gulp, opts) {
     });
 
     // Always open on all ports unless overridden
-    var host = options.devServerHost || '0.0.0.0';
+    const host = options.devServerHost || '0.0.0.0';
 
     server.listen(options.devServerPort || 8080, host, (err) => {
       if (err) {
         console.error('[webpack-dev-server] failed to start:', err);
       } else {
-        var openHost = (host === '0.0.0.0') ? 'localhost' : host;
+        const openHost = (host === '0.0.0.0') ? 'localhost' : host;
         console.log('[webpack-dev-server] started: opening the app in your default browser...');
-        var suffix = options.publicPath ? options.publicPath + '/' : '';
-        var openURL = 'http://' + openHost + ':' + options.devServerPort + '/webpack-dev-server/' + suffix;
+        const suffix = options.publicPath ? options.publicPath + '/' : '';
+        const openURL = 'http://' + openHost + ':' + options.devServerPort + '/webpack-dev-server/' + suffix;
         gulp.src(path.join(options.dist, 'index.html'))
         .pipe(gulpOpen({
           uri: openURL

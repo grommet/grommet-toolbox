@@ -1,3 +1,5 @@
+require('babel-register');
+
 import webpack from 'webpack';
 import deepAssign from 'deep-assign';
 

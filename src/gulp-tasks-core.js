@@ -22,10 +22,10 @@ export function coreTasks (gulp, opts) {
             .pipe(file(copyAsset.filename, copyAsset.asset))
             .pipe(gulp.dest(copyAsset.dist ? copyAsset.dist : options.dist));
         } else {
-          var asset = copyAsset.asset ? copyAsset.asset : copyAsset;
-          var assets = [asset];
+          const asset = copyAsset.asset ? copyAsset.asset : copyAsset;
+          const assets = [asset];
           if (copyAsset.ignores) {
-            copyAsset.ignores.forEach(function(ignore) {
+            copyAsset.ignores.forEach((ignore) => {
               assets.push('!' + asset + ignore);
               assets.push('!' + asset + '**/' + ignore);
               assets.push('!' + asset + '**/' + ignore + '/**');
@@ -49,9 +49,9 @@ export function coreTasks (gulp, opts) {
     });
 
     gulp.task('generate-icons', (done) => {
-      var basePath = options.base || process.cwd();
-      var iconsConfig = options.icons || {};
-      var iconInputFolder = iconsConfig.source;
+      const basePath = options.base || process.cwd();
+      const iconsConfig = options.icons || {};
+      let iconInputFolder = iconsConfig.source;
       if (iconInputFolder) {
         if (!pathIsAbsolute(iconsConfig.source)) {
           iconInputFolder = path.resolve(
@@ -59,12 +59,10 @@ export function coreTasks (gulp, opts) {
           );
         }
 
-        fs.readdir(iconInputFolder, function(err, icons) {
+        fs.readdir(iconInputFolder, (err, icons) => {
           if (icons) {
             if (iconsConfig.destination) {
-
-              icons.forEach(function (icon, index) {
-
+              icons.forEach((icon, index) => {
                 if (/\.svg$/.test(icon)) {
                   var iconPath = path.join(iconInputFolder, icon);
                   var content = fs.readFileSync(iconPath, 'utf8');
@@ -76,9 +74,9 @@ export function coreTasks (gulp, opts) {
                   var loaderContext = {
                     query: query,
                     resourcePath: iconPath,
-                    addDependency: function () {},
-                    async: function() {
-                      return function(err, result) {
+                    addDependency: () => {},
+                    async: () => {
+                      return (err, result) => {
                         var iconDestFolder = iconsConfig.destination;
                         if (!pathIsAbsolute(iconsConfig.destination)) {
                           iconDestFolder = path.resolve(
@@ -88,7 +86,7 @@ export function coreTasks (gulp, opts) {
 
                         del.sync([iconDestFolder]);
 
-                        mkdirp(iconDestFolder, function(err) {
+                        mkdirp(iconDestFolder, (err) => {
 
                           if (err) {
                             throw err;
@@ -106,7 +104,7 @@ export function coreTasks (gulp, opts) {
                             iconDestFolder, componentName
                           );
 
-                          fs.writeFile(destinationFile, result, function(err) {
+                          fs.writeFile(destinationFile, result, (err) => {
                             if (err) {
                               throw err;
                             }
