@@ -7,7 +7,7 @@ export function getOptions (opts) {
     if (!opts) {
       var configPath = path.resolve(process.cwd(), 'grommet-toolbox.config.js');
       try {
-        fs.accessSync(path, fs.F_OK);
+        fs.accessSync(configPath, fs.F_OK);
         var config = require(configPath);
         opts = config.default || config;
       } catch (e) {
