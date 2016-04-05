@@ -1,6 +1,6 @@
 {
   "name": "grommet-toolbox",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "main": "lib/index.js",
   "description": "Developer Environment for Grommet applications",
   "authors": [
@@ -28,6 +28,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-babel-istanbul": "^1.0.0",
+    "gulp-env": "^0.4.0",
     "gulp-eslint": "^2.0.0",
     "gulp-file": "^0.2.0",
     "gulp-if": "^2.0.0",

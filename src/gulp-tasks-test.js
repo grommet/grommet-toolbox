@@ -1,8 +1,13 @@
+import env from 'gulp-env';
 import istanbul from 'gulp-babel-istanbul';
 import tape from 'gulp-tape';
 import tapSpec from 'tap-spec';
 
 import gulpOptionsBuilder from './gulp-options-builder';
+
+const envs = env.set({
+  NODE_ENV: 'test'
+});
 
 export function testTasks (gulp, opts) {
 
@@ -13,9 +18,11 @@ export function testTasks (gulp, opts) {
   gulp.task('test', () => {
     if (options.testPaths) {
       return gulp.src(options.testPaths)
+        .pipe(envs)
         .pipe(tape({
           reporter: tapSpec()
-        }));
+        }))
+        .pipe(envs.reset);
     }
   });
 
@@ -36,9 +43,11 @@ export function testTasks (gulp, opts) {
         }))
         .pipe(istanbul.hookRequire()).on('finish', () => {
           gulp.src(options.testPaths)
+            .pipe(envs)
             .pipe(tape({
               reporter: tapSpec()
             }))
+            .pipe(envs.reset)
             .pipe(istanbul.writeReports({
               dir: './coverage',
               reporters: ['lcov']
