@@ -5,10 +5,13 @@ let options;
 export function getOptions (opts) {
   if (!options) {
     if (!opts) {
-      const configPath = path.resolve(process.cwd(), 'grommet-toolbox.config.js');
-      if (fs.statSync(configPath)) {
-        const config = require(configPath);
+      var configPath = path.resolve(process.cwd(), 'grommet-toolbox.config.js');
+      try {
+        fs.accessSync(path, fs.F_OK);
+        var config = require(configPath);
         opts = config.default || config;
+      } catch (e) {
+        opts = {};
       }
     }
 
