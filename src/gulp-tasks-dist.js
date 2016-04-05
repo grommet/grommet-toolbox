@@ -25,13 +25,13 @@ export function distTasks (gulp, opts) {
       if (process.env.CI) {
         runSequence('preprocess', options.distPreprocess, 'copy', callback);
       } else {
-        runSequence('preprocess', options.distPreprocess, 'copy', 'test', callback);
+        runSequence('preprocess', options.distPreprocess, 'copy', 'test:coverage', callback);
       }
     } else {
       if (process.env.CI) {
         runSequence('preprocess', callback);
       } else {
-        runSequence('preprocess', 'test', callback);
+        runSequence('preprocess', 'test:coverage', callback);
       }
     }
   });
