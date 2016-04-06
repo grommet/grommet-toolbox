@@ -8,6 +8,7 @@ Developer Environment for Grommet applications with the following built-in featu
 * Development server with hot-reloading
 * Test infrastructure based on tape and gulp watch
 * Code coverage using Istanbul
+* Convert raw svgs to Grommet icons with accessibility support
 
 grommet-toolbox runs on top of Gulp.
 
@@ -43,6 +44,19 @@ var opts = {
 grommetToolbox(gulp, opts);
 ```
 
+Grommet-toolbox augments gulp object with these additional tasks:
+
+* **gulp copy**: uses `copyAssets` option to move files to distribution folder.
+* **gulp generate-icons**: uses `icons` option to convert raw svg icons to Grommet icons.
+* **gulp scsslint**: uses `scssAssets` option to lint your Sass code. `scsslint` option must also be set to true.
+* **gulp jslint**: uses `jsAssets` option to lint your Javascript code.
+* **gulp dev**: starts a webpack dev server with hot reloading. See options for example configuration.
+* **gulp dist**: prepares your application/library for production.
+* **gulp sync**: uses `sync` option to sync distribution content to a remote server.
+* **gulp test**: uses `testPaths` option to execute tests based on Tape.
+* **gulp test:watch**: runs tests and watch for changes to execute the tests again.
+* **gulp test:coverage**: runs tests and generates a code coverage report.
+
 ### Options
 
 | property      | type          | description     | default      | example    |
@@ -51,8 +65,20 @@ grommetToolbox(gulp, opts);
 | copyAssets    | array         | Optional. Assets to be copied to the distribution folder |  undefined  | [See copyAssets WIKI](https://github.com/grommet/grommet-toolbox/wiki/copyAssets-WIKI)  |
 | customEslintPath | string     | Optional. Path to your custom eslint overrides  | undefined          | `customEslintPath: path.resolve(__dirname, 'customEslintrc')`        |
 | devPreprocess | array | Optional. A set of tasks to run before `gulp dev` | undefined | `['set-webpack-alias']` |
-| devServerDisableHot | boolean | Optional. If true, will disable webpack hot reloading | false | devServerDisableHot: true |
-| devServerHost | string | Optional. Host address for the webpack dev server | 'localhost' | devServerHost: '127.0.0.1 |
-| devServerPort | int | Optional. Sets a listener port for the webpack dev server | 8080 | devServerPort: 9000 |
-
-More to be added.
+| devServerDisableHot | boolean | Optional. If true, will disable webpack hot reloading | false | `devServerDisableHot: true` |
+| devServerHost | string | Optional. Host address for the webpack dev server | 'localhost' | `devServerHost: '127.0.0.1'` |
+| devServerPort | int | Optional. Sets a listener port for the webpack dev server | 8080 | `devServerPort: 9000` |
+| devServerProxy | object | Optional. Proxy requests from the webpack dev server | undefined | `devServerProxy: { '/rest/*': 'http://localhost:8114' }`|
+| dist | string | Optional. Location of the distribution folder | 'dist' | `dist: 'distribution'` |
+| distPreprocess | array | Optional. A set of tasks to run before `gulp dist` | undefined | `['dist-css']` |
+| env | object | Optional. Adds environment variables for Node | undefined | `{ DEV_MODE: 'true'}` |
+| icons | object | Optional. Converts raw icons to a Grommet icon | undefined | [See icon WIKI](https://github.com/grommet/grommet-toolbox/wiki/icon-WIKI) |
+| jsAssets | array | Required. Location of your Javascript Assets | [] | `jsAssets: ['src/js/**/*.js']` |
+| jsLoader | object | Optional. If you want to use another webpack loader for your Javascript Assets | react-loader | `{ test: /\.jsx?$/, loader: 'react-hot!babel-loader', exclude: /(node_modules|bower_components|src\/lib)/ }` |
+| mainJs |  string | Required. Location of your main Javascript file | undefined | `mainJs: 'src/js/index.js'` |
+| publicPath | string | Optional. Your main app context | '/' | `publichPath: '/docs'` |
+| scssAssets | array | Optional. Location of your Sass Assets | [] | `scssAssets: ['src/scss/**/*.scss']` |
+| scsslint | boolean | Optional. If true, will run Sass linting | false | `scsslint: true` |
+| sync | object | Optional. Syncs your content to a remote server | undefined | `sync: { hostname: 'grommet.io', username: 'grommet', remoteDestination: '/var/www/html/'}` |
+| testPaths | array | Optional. Location of your test assets | undefined | `testPaths: ['test/**/*.js']` |
+| webpack | object | Optional. Additional webpack options to be used in gulp dist | undefined | [See Webpack Configuration](https://webpack.github.io/docs/configuration.html) |
