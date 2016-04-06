@@ -116,6 +116,10 @@ grommet-toolbox will look into your application's root folder and extract the co
 | testPaths | array | Optional. Location of your test assets | undefined | `testPaths: ['test/**/*.js']` |
 | webpack | object | Optional. Additional webpack options to be used in gulp dist | undefined | [See Webpack Configuration](https://webpack.github.io/docs/configuration.html) |
 
+### Example
+
+[See grommet-todo](https://github.com/grommet/grommet-todo)
+
 ### Advanced
 
 [See Advanced Usage wiki](https://github.com/grommet/grommet-toolbox/wiki/Advanced-Usage)
