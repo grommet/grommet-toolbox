@@ -1,6 +1,6 @@
 # grommet-toolbox
 
-Developer Environment for Grommet applications with the following buit-in features:
+Developer Environment for Grommet applications with the following built-in features:
 
 * Ability to create a production ready distribution with minified Javascript and CSS
 * Ability to sync your distribution to a remote location
@@ -42,3 +42,17 @@ var opts = {
 
 grommetToolbox(gulp, opts);
 ```
+
+### Options
+
+| property      | type          | description     | default      | example    |
+| ------------- |---------------|-----------------|------------- |------------|
+| base          | string        | Optional. Base working directory           | process.cwd()      | `base: '.'` |
+| copyAssets    | array         | Optional. Assets to be copied to the distribution folder |  undefined  | [See copyAssets WIKI](https://github.com/grommet/grommet-toolbox/wiki/copyAssets-WIKI)  |
+| customEslintPath | string     | Optional. Path to your custom eslint overrides  | undefined          | `customEslintPath: path.resolve(__dirname, 'customEslintrc')`        |
+| devPreprocess | array | Optional. A set of tasks to run before `gulp dev` | undefined | `['set-webpack-alias']` |
+| devServerDisableHot | boolean | Optional. If true, will disable webpack hot reloading | false | devServerDisableHot: true |
+| devServerHost | string | Optional. Host address for the webpack dev server | 'localhost' | devServerHost: '127.0.0.1 |
+| devServerPort | int | Optional. Sets a listener port for the webpack dev server | 8080 | devServerPort: 9000 |
+
+More to be added.
