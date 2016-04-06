@@ -57,6 +57,39 @@ Grommet-toolbox augments gulp object with these additional tasks:
 * **gulp test:watch**: runs tests and watch for changes to execute the tests again.
 * **gulp test:coverage**: runs tests and generates a code coverage report.
 
+### Recommended Usage
+
+As your configuration grows it gets really difficult to manipulate everything inside a single gulp file. Grommet-toolbox offers a config file where you can store your application specific settings. This is the **recommended** way of using this tool. Now you will have two files, **grommet-toolbox.config.js** and **gulpfile.babel.js**:
+
+**grommet-toolbox.config.js**
+```javascript
+export default {
+  copyAssets: [
+    'src/index.html',
+    {
+      asset: 'src/img/**',
+      dist: 'dist/img/'
+    }
+  ],
+  scssAssets: ['src/scss/**/*.scss'],
+  jsAssets: ['src/js/**/*.js'],
+  mainJs: 'src/js/index.js',
+  mainScss: 'src/scss/index.scss',
+  devServerPort: 9000,
+  scsslint: true
+};
+```
+
+**gulpfile.babel.js**
+```javascript
+import gulp from 'gulp';
+import grommetToolbox from 'grommet-toolbox';
+
+grommetToolbox(gulp);
+```
+
+grommet-toolbox will look into your application's root folder and extract the configuration for your project.
+
 ### Options
 
 | property      | type          | description     | default      | example    |
@@ -82,3 +115,7 @@ Grommet-toolbox augments gulp object with these additional tasks:
 | sync | object | Optional. Syncs your content to a remote server | undefined | `sync: { hostname: 'grommet.io', username: 'grommet', remoteDestination: '/var/www/html/'}` |
 | testPaths | array | Optional. Location of your test assets | undefined | `testPaths: ['test/**/*.js']` |
 | webpack | object | Optional. Additional webpack options to be used in gulp dist | undefined | [See Webpack Configuration](https://webpack.github.io/docs/configuration.html) |
+
+### Advanced
+
+[See Advanced Usage wiki](https://github.com/grommet/grommet-toolbox/wiki/Advanced-Usage)
