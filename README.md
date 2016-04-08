@@ -9,6 +9,7 @@ Developer Environment for Grommet applications with the following built-in featu
 * Test infrastructure based on tape and gulp watch
 * Code coverage using Istanbul
 * Convert raw svgs to Grommet icons with accessibility support
+* Bundle your project and its dependencies in a compressed file
 
 grommet-toolbox runs on top of Gulp.
 
@@ -56,6 +57,7 @@ Grommet-toolbox augments gulp object with these additional tasks:
 * **gulp test**: uses `testPaths` option to execute tests based on Tape.
 * **gulp test:watch**: runs tests and watch for changes to execute the tests again.
 * **gulp test:coverage**: runs tests and generates a code coverage report.
+* **gulp pack**: uses the package.json dependencies object to create a compressed file with all the dependencies included.
 
 ### Recommended Usage
 

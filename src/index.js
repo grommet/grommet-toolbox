@@ -1,5 +1,6 @@
 import gulpTasks from './gulp-tasks';
 
+export * from './gulp-tasks-pack';
 export * from './gulp-tasks-dev';
 export * from './gulp-tasks-dist';
 export * from './gulp-tasks-linters';
