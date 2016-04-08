@@ -30,21 +30,7 @@ if (!argv.skipMinify) {
 
 const config = deepAssign({
   plugins: plugins
-}, options.webpackConfig, options.webpack || {});
-
-if (!config.resolve) {
-  config.resolve = {};
-}
-
-if (!config.resolveLoader) {
-  config.resolveLoader = {};
-}
-
-if (options.webpack.module && options.webpack.module.loaders) {
-  options.webpackConfig.module.loaders.forEach((loader) =>
-    config.module.loaders.push(loader)
-  );
-}
+}, options.webpack);
 
 config.resolve.extensions = deepAssign(config.resolve.extensions || [],
   ['', '.js', '.json', '.htm', '.html', '.scss', '.md', '.svg']);

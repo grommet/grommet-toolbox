@@ -5,14 +5,13 @@ import deepAssign from 'deep-assign';
 
 import gulpOptionsBuilder from './gulp-options-builder';
 const options = gulpOptionsBuilder();
-delete options.webpackConfig.entry;
 
 const env = deepAssign({}, options.env, {
   __DEV_MODE__: true,
   NODE_ENV: '"development"'
 });
 
-const config = deepAssign({}, options.webpackConfig, {
+const config = deepAssign({
   entry: {
     app: [
       'webpack-dev-server/client?http://' + (options.devServerHost || 'localhost')  + ':' + (options.devServerPort || '8080'),
@@ -29,21 +28,7 @@ const config = deepAssign({}, options.webpackConfig, {
 
   devtool: 'eval'
 
-}, options.webpack || {});
-
-if (!config.resolve) {
-  config.resolve = {};
-}
-
-if (!config.resolveLoader) {
-  config.resolveLoader = {};
-}
-
-if (options.webpack.module && options.webpack.module.loaders) {
-  options.webpack.module.loaders.forEach((loader) =>
-    config.module.loaders.push(loader)
-  );
-}
+}, options.webpack);
 
 config.plugins = [
   new webpack.HotModuleReplacementPlugin(),
