@@ -1,4 +1,5 @@
 import path from 'path';
+import del from 'del';
 import fs from 'fs';
 import cp from 'child_process';
 import tarball from 'tarball-extract';
@@ -70,6 +71,8 @@ export function packTasks (gulp) {
           fs.writeFileSync(packageJSON, JSON.stringify(
             JSON.parse(contents), null, 2)
           );
+
+          del.sync(['./tmp']);
 
           done();
         });
