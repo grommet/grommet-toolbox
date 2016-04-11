@@ -36,7 +36,7 @@ export function coreTasks (gulp, opts) {
           try {
             fs.accessSync(babelrcPath, fs.F_OK);
           } catch (e) {
-            babelrcPath = path.resolve(__dirname, '.babelrc');
+            babelrcPath = path.resolve(__dirname, '../.babelrc');
           }
 
           const babelConfig = JSON.parse(fs.readFileSync(babelrcPath));
