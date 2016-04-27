@@ -6,11 +6,11 @@ import tapSpec from 'tap-spec';
 
 import gulpOptionsBuilder from './gulp-options-builder';
 
-const envs = env.set({
-  NODE_ENV: 'test'
-});
-
 export function testTasks (gulp, opts) {
+
+  const envs = env.set({
+    NODE_ENV: 'test'
+  });
 
   const runSequence = require('run-sequence').use(gulp);
 
