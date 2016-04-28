@@ -104,6 +104,7 @@ grommet-toolbox will look into your application's root folder and extract the co
 | devServerHost | string | Optional. Host address for the webpack dev server | 'localhost' | `devServerHost: '127.0.0.1'` |
 | devServerPort | int | Optional. Sets a listener port for the webpack dev server | 8080 | `devServerPort: 9000` |
 | devServerProxy | object | Optional. Proxy requests from the webpack dev server | undefined | `devServerProxy: { '/rest/*': 'http://localhost:8114' }`|
+| devServer | object | Optional. Any additional options for the webpack dev server | undefined | `devServer: { https: true }`|
 | dist | string | Optional. Location of the distribution folder | 'dist' | `dist: 'distribution'` |
 | distPreprocess | array | Optional. A set of tasks to run before `gulp dist` | undefined | `['dist-css']` |
 | env | object | Optional. Adds environment variables for Node | undefined | `{ DEV_MODE: 'true'}` |

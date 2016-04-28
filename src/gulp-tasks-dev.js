@@ -4,6 +4,7 @@ const argv = yargs.argv;
 import WebpackDevServer from 'webpack-dev-server';
 import gulpOpen from 'gulp-open';
 import path from 'path';
+import deepAssign from 'deep-assign';
 
 import gulpOptionsBuilder from './gulp-options-builder';
 import gulpTasksCore from './gulp-tasks-core';
@@ -61,6 +62,10 @@ export function devTasks (gulp, opts) {
       devServerConfig.proxy = options.devServerProxy;
     }
 
+    if (options.devServer) {
+      deepAssign(devServerConfig, options.devServer);
+    }
+
     const server = new WebpackDevServer(
       webpack(config), devServerConfig
     );
@@ -103,10 +108,11 @@ export function devTasks (gulp, opts) {
       if (err) {
         console.error('[webpack-dev-server] failed to start:', err);
       } else {
+        const protocol = (options.devServer && options.devServer.https) ? 'https' : 'http';
         const openHost = (host === '0.0.0.0') ? 'localhost' : host;
         console.log('[webpack-dev-server] started: opening the app in your default browser...');
         const suffix = options.publicPath ? options.publicPath + '/' : '';
-        const openURL = 'http://' + openHost + ':' + options.devServerPort + '/webpack-dev-server/' + suffix;
+        const openURL = protocol + '://' + openHost + ':' + options.devServerPort + '/webpack-dev-server/' + suffix;
         gulp.src(path.join(options.dist, 'index.html'))
         .pipe(gulpOpen({
           uri: openURL
