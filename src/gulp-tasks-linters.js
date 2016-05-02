@@ -17,15 +17,20 @@ export function linterTasks (gulp, opts) {
     scssLintPath = path.resolve(__dirname, '../.scss-lint.yml');
   }
 
-  let esLintPath = path.resolve(process.cwd(), '.eslintrc');
+  let esLintPath = options.eslintConfigPath || path.resolve(process.cwd(), '.eslintrc');
   try {
     fs.accessSync(esLintPath, fs.F_OK);
   } catch (e) {
     esLintPath = path.resolve(__dirname, '../.eslintrc');
   }
 
-  const customEslint = options.customEslintPath ?
-    require(options.customEslintPath) : {};
+  let eslintOverride = options.eslintOverride ? 
+    require(options.eslintOverride) : {};
+
+  if (options.customEslintPath) {
+    eslintOverride = require(options.customEslintPath);
+    console.warn('customEslintPath has been deprecated. You should use eslintOverride instead');
+  }
 
   gulp.task('scsslint', () => {
     if (options.scsslint) {
@@ -47,7 +52,7 @@ export function linterTasks (gulp, opts) {
   gulp.task('jslint', () => {
     const eslintRules = deepAssign({
       configFile: esLintPath
-    }, customEslint);
+    }, eslintOverride);
     return gulp.src(options.jsAssets || [])
       .pipe(eslint(eslintRules))
       .pipe(eslint.formatEach())

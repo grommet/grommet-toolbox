@@ -98,7 +98,8 @@ grommet-toolbox will look into your application's root folder and extract the co
 | ------------- |---------------|-----------------|------------- |------------|
 | base          | string        | Optional. Base working directory           | process.cwd()      | `base: '.'` |
 | copyAssets    | array         | Optional. Assets to be copied to the distribution folder |  undefined  | [See copyAssets WIKI](https://github.com/grommet/grommet-toolbox/wiki/copyAssets-WIKI)  |
-| customEslintPath | string     | Optional. Path to your custom eslint overrides  | undefined          | `customEslintPath: path.resolve(__dirname, 'customEslintrc')`        |
+| eslintConfigPath | string     | Optional. Path to your custom eslint config file  | undefined          | `eslintConfigPath: path.resolve(__dirname, '../.eslintrc')`        |
+| eslintOverride | string     | Optional. Path to your custom eslint overrides  | undefined          | `eslintOverride: path.resolve(__dirname, 'customEslintrc')`        |
 | devPreprocess | array | Optional. A set of tasks to run before `gulp dev` | undefined | `['set-webpack-alias']` |
 | devServerDisableHot | boolean | Optional. If true, will disable webpack hot reloading | false | `devServerDisableHot: true` |
 | devServerHost | string | Optional. Host address for the webpack dev server | 'localhost' | `devServerHost: '127.0.0.1'` |
