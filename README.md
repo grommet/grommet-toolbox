@@ -2,9 +2,9 @@
 
 Developer Environment for Grommet applications with the following built-in features:
 
-* Ability to create a production ready distribution with minified Javascript and CSS
+* Ability to create a production ready distribution with minified JavaScript and CSS
 * Ability to sync your distribution to a remote location
-* Javascript and Sass linters
+* JavaScript and Sass linters
 * Development server with hot-reloading
 * Test infrastructure based on tape and gulp watch
 * Code coverage using Istanbul
@@ -50,7 +50,7 @@ Grommet-toolbox augments gulp object with these additional tasks:
 * **gulp copy**: uses `copyAssets` option to move files to distribution folder.
 * **gulp generate-icons**: uses `icons` option to convert raw svg icons to Grommet icons.
 * **gulp scsslint**: uses `scssAssets` option to lint your Sass code. `scsslint` option must also be set to true.
-* **gulp jslint**: uses `jsAssets` option to lint your Javascript code.
+* **gulp jslint**: uses `jsAssets` and `testPaths` options to lint your JavaScript code.
 * **gulp dev**: starts a webpack dev server with hot reloading. See options for example configuration.
 * **gulp dist**: prepares your application/library for production.
 * **gulp sync**: uses `sync` option to sync distribution content to a remote server.
@@ -110,9 +110,9 @@ grommet-toolbox will look into your application's root folder and extract the co
 | distPreprocess | array | Optional. A set of tasks to run before `gulp dist` | undefined | `['dist-css']` |
 | env | object | Optional. Adds environment variables for Node | undefined | `{ DEV_MODE: 'true'}` |
 | icons | object | Optional. Converts raw icons to a Grommet icon | undefined | [See icon WIKI](https://github.com/grommet/grommet-toolbox/wiki/icon-WIKI) |
-| jsAssets | array | Required. Location of your Javascript Assets | [] | `jsAssets: ['src/js/**/*.js']` |
-| jsLoader | object | Optional. If you want to use another webpack loader for your Javascript Assets | react-loader | `{ test: /\.jsx?$/, loader: 'react-hot!babel-loader', exclude: /(node_modules|bower_components|src\/lib)/ }` |
-| mainJs |  string | Required. Location of your main Javascript file | undefined | `mainJs: 'src/js/index.js'` |
+| jsAssets | array | Required. Location of your JavaScript Assets | [] | `jsAssets: ['src/js/**/*.js']` |
+| jsLoader | object | Optional. If you want to use another webpack loader for your JavaScript Assets | react-loader | `{ test: /\.jsx?$/, loader: 'react-hot!babel-loader', exclude: /(node_modules|bower_components|src\/lib)/ }` |
+| mainJs |  string | Required. Location of your main JavaScript file | undefined | `mainJs: 'src/js/index.js'` |
 | publicPath | string | Optional. Your main app context | '/' | `publichPath: '/docs'` |
 | scssAssets | array | Optional. Location of your Sass Assets | [] | `scssAssets: ['src/scss/**/*.scss']` |
 | scsslint | boolean | Optional. If true, will run Sass linting | false | `scsslint: true` |

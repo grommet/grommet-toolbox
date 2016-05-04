@@ -24,7 +24,7 @@ export function linterTasks (gulp, opts) {
     esLintPath = path.resolve(__dirname, '../.eslintrc');
   }
 
-  let eslintOverride = options.eslintOverride ? 
+  let eslintOverride = options.eslintOverride ?
     require(options.eslintOverride) : {};
 
   if (options.customEslintPath) {
@@ -53,7 +53,7 @@ export function linterTasks (gulp, opts) {
     const eslintRules = deepAssign({
       configFile: esLintPath
     }, eslintOverride);
-    return gulp.src(options.jsAssets || [])
+    return gulp.src([].concat(options.jsAssets || []).concat(options.testPaths || []))
       .pipe(eslint(eslintRules))
       .pipe(eslint.formatEach())
       .pipe(eslint.failOnError());
