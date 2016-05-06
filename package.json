@@ -59,7 +59,8 @@
     "tarball-extract": "0.0.3",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1",
-    "webpack-stream": "^3.1.0"
+    "webpack-stream": "^3.1.0",
+    "yargs": "^3.32.0"
   },
   "scripts": {
     "build": "node_modules/.bin/babel src --out-dir lib --copy-files --loose-mode"
