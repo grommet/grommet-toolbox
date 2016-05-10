@@ -27,7 +27,7 @@
     "css-loader": "^0.23.1",
     "deep-assign": "^2.0.0",
     "del": "^2.2.0",
-    "eslint-plugin-react": "^4.2.3",
+    "eslint-plugin-react": "^5.1.1",
     "file-loader": "^0.8.5",
     "grommet-icon-loader": "^0.2.10",
     "gulp": "^3.9.1",
@@ -35,10 +35,10 @@
     "gulp-babel-istanbul": "^1.0.0",
     "gulp-env": "^0.4.0",
     "gulp-eslint": "^2.0.0",
-    "gulp-file": "^0.2.0",
+    "gulp-file": "^0.3.0",
     "gulp-if": "^2.0.0",
-    "gulp-open": "^1.0.0",
-    "gulp-rsync": "0.0.5",
+    "gulp-open": "^2.0.0",
+    "gulp-rsync": "0.0.6",
     "gulp-scss-lint": "^0.3.9",
     "gulp-tape": "0.0.7",
     "gulp-util": "^3.0.7",
@@ -52,7 +52,7 @@
     "rsync": "^0.4.0",
     "run-sequence": "^1.1.5",
     "sass-loader": "^3.2.0",
-    "shelljs": "^0.6.0",
+    "shelljs": "^0.7.0",
     "style-loader": "^0.13.1",
     "tap-spec": "^4.1.1",
     "tape": "^4.5.1",
@@ -60,7 +60,7 @@
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1",
     "webpack-stream": "^3.1.0",
-    "yargs": "^3.32.0"
+    "yargs": "^4.7.0"
   },
   "scripts": {
     "build": "node_modules/.bin/babel src --out-dir lib --copy-files --loose-mode"
