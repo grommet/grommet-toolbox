@@ -1,5 +1,7 @@
 # grommet-toolbox
 
+[![Dependency Status](https://david-dm.org/grommet/grommet-toolbox.svg)](https://david-dm.org/grommet/grommet-toolbox)  [![devDependency Status](https://david-dm.org/grommet/grommet-toolbox/dev-status.svg)](https://david-dm.org/grommet/grommet-toolbox#info=devDependencies)
+
 Developer Environment for Grommet applications with the following built-in features:
 
 * Ability to create a production ready distribution with minified JavaScript and CSS
