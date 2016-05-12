@@ -15,9 +15,11 @@ export function coreTasks (gulp, opts) {
   if (!loaded) {
     const runSequence = require('run-sequence').use(gulp);
 
-    gulp.task('copy', () => {
+    gulp.task('copy', (done) => {
+      let count = 0;
       (options.copyAssets || []).forEach((copyAsset) => {
         if (copyAsset.filename) {
+          count++;
           gulp.src('./')
             .pipe(file(copyAsset.filename, copyAsset.asset))
             .pipe(gulp.dest(copyAsset.dist ? copyAsset.dist : options.dist));
@@ -44,7 +46,13 @@ export function coreTasks (gulp, opts) {
           gulp.src(assets, {
             dot: true
           }).pipe(gulpif(copyAsset.babel, babel(babelConfig)))
-          .pipe(gulp.dest(copyAsset.dist ? copyAsset.dist : options.dist));
+          .pipe(gulp.dest(copyAsset.dist ? copyAsset.dist : options.dist))
+          .on('end', () => {
+            count++;
+            if (count === options.copyAssets.length - 1) {
+              done();
+            }
+          });
         }
 
       });
@@ -138,7 +146,7 @@ export function coreTasks (gulp, opts) {
 
     gulp.task('preprocess', (callback) =>
       runSequence(
-        'clean', 'copy', 'generate-icons', 'jslint', 'scsslint', callback
+        'clean', 'generate-icons', 'jslint', 'scsslint', callback
       )
     );
 

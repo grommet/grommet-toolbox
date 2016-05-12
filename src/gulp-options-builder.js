@@ -6,13 +6,16 @@ let options;
 export function getOptions (opts) {
   if (!options) {
     if (!opts) {
-      var configPath = path.resolve(process.cwd(), 'grommet-toolbox.config.js');
+      const configPath = path.resolve(process.cwd(), 'grommet-toolbox.config.js');
       try {
         fs.accessSync(configPath, fs.F_OK);
-        var config = require(configPath);
-        opts = config.default || config;
       } catch (e) {
         opts = {};
+      }
+
+      if (!opts) {
+        const config = require(configPath);
+        opts = config.default || config;
       }
     }
 

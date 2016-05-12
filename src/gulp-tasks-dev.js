@@ -25,9 +25,9 @@ export function devTasks (gulp, opts) {
     if (argv.skipPreprocess) {
       callback();
     } else if (options.devPreprocess) {
-      runSequence('preprocess', options.devPreprocess, callback);
+      runSequence('preprocess', options.devPreprocess, 'copy', callback);
     } else {
-      runSequence('preprocess', callback);
+      runSequence('preprocess', 'copy', callback);
     }
   });
 

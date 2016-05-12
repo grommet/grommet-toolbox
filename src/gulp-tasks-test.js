@@ -2,6 +2,7 @@ import env from 'gulp-env';
 import istanbul from 'gulp-babel-istanbul';
 import tape from 'gulp-tape';
 import gulpif from 'gulp-if';
+import gutil from 'gulp-util';
 import tapSpec from 'tap-spec';
 
 import gulpOptionsBuilder from './gulp-options-builder';
@@ -26,8 +27,13 @@ export function testTasks (gulp, opts) {
       return gulp.src(options.testPaths)
         .pipe(gulpif(!watch, envs))
         .pipe(tape({
-          reporter: tapSpec()
+          reporter: tapSpec(),
+          bail: true
         }))
+        .on('error', (error) => {
+          gutil.log(error.message);
+          process.exit(1);
+        })
         .pipe(gulpif(!watch, envs.reset));
     }
   });
@@ -52,8 +58,13 @@ export function testTasks (gulp, opts) {
           gulp.src(options.testPaths)
             .pipe(envs)
             .pipe(tape({
-              reporter: tapSpec()
+              reporter: tapSpec(),
+              bail: true
             }))
+            .on('error', (error) => {
+              gutil.log(error.message);
+              process.exit(1);
+            })
             .pipe(envs.reset)
             .pipe(istanbul.writeReports({
               dir: './coverage',
