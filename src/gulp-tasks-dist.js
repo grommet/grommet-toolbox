@@ -29,9 +29,9 @@ export function distTasks (gulp, opts) {
       }
     } else {
       if (process.env.CI) {
-        runSequence('preprocess', callback);
+        runSequence('preprocess', 'copy', callback);
       } else {
-        runSequence('preprocess', 'test:coverage', callback);
+        runSequence('preprocess', 'copy', 'test:coverage', callback);
       }
     }
   });
