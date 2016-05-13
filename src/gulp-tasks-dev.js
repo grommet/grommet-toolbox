@@ -113,7 +113,7 @@ export function devTasks (gulp, opts) {
         console.log('[webpack-dev-server] started: opening the app in your default browser...');
         const suffix = options.publicPath ? options.publicPath + '/' : '';
         const openURL = protocol + '://' + openHost + ':' + options.devServerPort + '/webpack-dev-server/' + suffix;
-        gulp.src(path.join(options.dist, 'index.html'))
+        gulp.src(__filename)
         .pipe(gulpOpen({
           uri: openURL
         }));
