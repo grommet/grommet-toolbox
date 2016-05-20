@@ -38,7 +38,7 @@ export function linterTasks (gulp, opts) {
         var scsslint = require('gulp-scss-lint');
         return gulp.src(options.scssAssets || []).pipe(scsslint({
           'config': scssLintPath
-        })).pipe(scsslint.failReporter());
+        })).pipe(scsslint.failReporter()).on('error', () => process.exit(1));
       } else {
         console.error('[scsslint] scsslint skipped!');
         console.error(
@@ -56,7 +56,8 @@ export function linterTasks (gulp, opts) {
     return gulp.src([].concat(options.jsAssets || []).concat(options.testPaths || []))
       .pipe(eslint(eslintRules))
       .pipe(eslint.formatEach())
-      .pipe(eslint.failOnError());
+      .pipe(eslint.failAfterError())
+      .on('error', () => process.exit(1));
   });
 };
 
