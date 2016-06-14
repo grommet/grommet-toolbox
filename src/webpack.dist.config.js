@@ -14,7 +14,7 @@ const env = deepAssign({
   'process.env.NODE_ENV': '"production"'
 }, options.env);
 
-const config = options.webpack;
+const config = {...options.webpack};
 
 config.plugins = [
   new webpack.DefinePlugin(env),

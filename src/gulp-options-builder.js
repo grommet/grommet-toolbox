@@ -31,8 +31,23 @@ export function getOptions (opts) {
       exclude: /(node_modules|bower_components|src\/lib)/
     };
 
+    const scssLoader = options.scssLoader || {
+      test: /\.scss$/,
+      loader: 'style!css!sass?outputStyle=expanded&' +
+        'includePaths[]=' +
+        (encodeURIComponent(
+          path.resolve(options.base || process.cwd(), './node_modules')
+        )) +
+        '&includePaths[]=' +
+        (encodeURIComponent(
+          path.resolve(options.base || process.cwd(),
+          './node_modules/grommet/node_modules'))
+        )
+    };
+
     options.webpack = deepAssign({
-      entry: path.resolve(options.mainJs),
+      entry: options.webpack && options.webpack.entry ?
+        options.webpack.entry : path.resolve(options.mainJs),
       output: {
         filename: 'index.js'
       },
@@ -49,6 +64,7 @@ export function getOptions (opts) {
 
     options.webpack.module.loaders = options.webpack.module.loaders.concat(
       jsLoader,
+      scssLoader,
       {
         test: /\.json$/,
         loader: 'json-loader'
@@ -68,19 +84,6 @@ export function getOptions (opts) {
       {
         test: /\.otf$/,
         loader: 'file-loader?mimetype=application/font/opentype'
-      },
-      {
-        test: /\.scss$/,
-        loader: 'style!css!sass?outputStyle=expanded&' +
-          'includePaths[]=' +
-          (encodeURIComponent(
-            path.resolve(options.base || process.cwd(), './node_modules')
-          )) +
-          '&includePaths[]=' +
-          (encodeURIComponent(
-            path.resolve(options.base || process.cwd(),
-            './node_modules/grommet/node_modules'))
-          )
       },
       {
         test: /\.css$/,
