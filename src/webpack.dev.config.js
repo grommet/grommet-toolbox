@@ -11,14 +11,13 @@ const env = deepAssign({}, options.env, {
   NODE_ENV: '"development"'
 });
 
+delete options.webpack.entry;
 const config = deepAssign({
-  entry: {
-    app: [
-      'webpack-dev-server/client?http://' + (options.devServerHost || 'localhost')  + ':' + (options.devServerPort || '8080'),
-      'webpack/hot/only-dev-server',
-      './' + options.mainJs
-    ]
-  },
+  entry: [
+    'webpack-dev-server/client/index.js?http://' + (options.devServerHost || 'localhost') + ':' + (options.devServerPort || '8080'),
+    'webpack/hot/dev-server',
+    './' + options.mainJs
+  ],
 
   output: {
     filename: 'index.js',
