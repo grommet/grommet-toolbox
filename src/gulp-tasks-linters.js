@@ -34,7 +34,6 @@ export function linterTasks (gulp, opts) {
   }
 
   gulp.task('scsslint', () => {
-    console.log('hihihi');
     if (options.scsslint) {
       return gulp.src(options.scssAssets || [])
         .pipe(sassLint({
