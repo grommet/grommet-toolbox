@@ -49,7 +49,7 @@ export function coreTasks (gulp, opts) {
           .pipe(gulp.dest(copyAsset.dist ? copyAsset.dist : options.dist))
           .on('end', () => {
             count++;
-            if (count === options.copyAssets.length - 1) {
+            if (count === options.copyAssets.length) {
               done();
             }
           });
