@@ -1,7 +1,6 @@
 import path from 'path';
 import fs from 'fs';
 import eslint from 'gulp-eslint';
-import shelljs from 'shelljs';
 import deepAssign from 'deep-assign';
 import sassLint from 'gulp-sass-lint';
 
