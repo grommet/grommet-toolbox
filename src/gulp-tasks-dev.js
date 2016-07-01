@@ -76,7 +76,7 @@ export function devTasks (gulp, opts) {
         const profileFile = path.resolve(options.webpackProfile);
         const statsString = JSON.stringify(stats.toJson());
         writeFile(profileFile, statsString, (err) => {
-          if (err) console.error('Failed to write webpackProfile:', err);
+          if (err) return console.error('Failed to write webpackProfile:', err);
           console.log('[webpack] Wrote webpack stats to:', profileFile);
           console.log('[webpack] Analyze stats at https://webpack.github.io/analyse/');
         });
@@ -84,7 +84,7 @@ export function devTasks (gulp, opts) {
     }
 
     const server = new WebpackDevServer(compiler, devServerConfig);
-    
+
     server.use('/', (req, res, next) => {
 
       const acceptLanguageHeader = req.headers['accept-language'];
