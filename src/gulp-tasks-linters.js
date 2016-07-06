@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import eslint from 'gulp-eslint';
+import cache from 'gulp-cache';
 import deepAssign from 'deep-assign';
 import sassLint from 'gulp-sass-lint';
 
@@ -49,7 +50,10 @@ export function linterTasks (gulp, opts) {
       configFile: esLintPath
     }, eslintOverride);
     return gulp.src([].concat(options.jsAssets || []).concat(options.testPaths || []))
-      .pipe(eslint(eslintRules))
+      .pipe(cache(eslint(eslintRules), {
+        success: (linted) => linted.eslint && !linted.eslint.messages.length,
+        value: (linted) => ({eslint: linted.eslint})
+      }))
       .pipe(eslint.formatEach())
       .pipe(eslint.failAfterError())
       .on('error', () => process.exit(1));

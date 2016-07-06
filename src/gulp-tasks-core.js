@@ -2,6 +2,7 @@ import del from 'del';
 import file from 'gulp-file';
 import gulpif from 'gulp-if';
 import babel from 'gulp-babel';
+import cache from 'gulp-cache';
 import path from 'path';
 import fs from 'fs';
 import loader from 'grommet-icon-loader';
@@ -151,6 +152,8 @@ export function coreTasks (gulp, opts) {
     );
 
     gulp.task('clean', () => del.sync([options.dist]));
+
+    gulp.task('clear-cache', (done) => cache.clearAll(done));
 
     gulp.task('node-clean', (done) => {
       require('rimraf')(path.resolve(process.cwd(), 'node_modules'), (err) => {
