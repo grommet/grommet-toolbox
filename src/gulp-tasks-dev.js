@@ -4,6 +4,7 @@ const argv = yargs.argv;
 import WebpackDevServer from 'webpack-dev-server';
 import gulpOpen from 'gulp-open';
 import path from 'path';
+import {writeFile} from 'fs';
 import deepAssign from 'deep-assign';
 
 import gulpOptionsBuilder from './gulp-options-builder';
@@ -45,7 +46,7 @@ export function devTasks (gulp, opts) {
 
     const devServerConfig = {
       contentBase: options.dist,
-      hot: options.devServerDisableHot ? false : true,
+      hot: !options.devServerDisableHot,
       inline: true,
       stats: {
         colors: true
@@ -66,9 +67,24 @@ export function devTasks (gulp, opts) {
       deepAssign(devServerConfig, options.devServer);
     }
 
-    const server = new WebpackDevServer(
-      webpack(config), devServerConfig
-    );
+    if (options.webpackProfile) config.profile = true;
+
+    const compiler = webpack(config);
+
+    if (options.webpackProfile) {
+      compiler.plugin('done', stats => {
+        const profileFile = path.resolve(options.webpackProfile);
+        const statsString = JSON.stringify(stats.toJson());
+        writeFile(profileFile, statsString, (err) => {
+          if (err) return console.error('Failed to write webpackProfile:', err);
+          console.log('[webpack] Wrote webpack stats to:', profileFile);
+          console.log('[webpack] Analyze stats at https://webpack.github.io/analyse/');
+        });
+      });
+    }
+
+    const server = new WebpackDevServer(compiler, devServerConfig);
+
     server.use('/', (req, res, next) => {
 
       const acceptLanguageHeader = req.headers['accept-language'];
