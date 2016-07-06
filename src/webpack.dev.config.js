@@ -33,7 +33,7 @@ const config = deepAssign({
 config.module.loaders = config.module.loaders.map(entry => {
   let {loader} = entry;
   if (/babel/.test(loader)) {
-    loader = `react-hot!babel`;
+    loader = loader.replace(/(babel)/, 'react-hot!$1');
   } else if (/sass/.test(loader)) {
     // returns style!css?sourceMap!sass?sourceMap&outputStyle...
     loader = loader.replace(/css/, 'css?sourceMap');
