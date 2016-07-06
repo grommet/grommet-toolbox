@@ -29,6 +29,21 @@ const config = deepAssign({
 
 }, options.webpack);
 
+// Ensure dev loaders are used.
+config.module.loaders = config.module.loaders.map(entry => {
+  let {loader} = entry;
+  if (/babel/.test(loader)) {
+    loader = loader.replace(/(babel)/, 'react-hot!$1');
+  } else if (/sass/.test(loader)) {
+    // returns style!css?sourceMap!sass?sourceMap&outputStyle...
+    loader = loader.replace(/css/, 'css?sourceMap');
+    loader = loader.replace(/(outputStyle)/, 'sourceMap&$1');
+  }
+
+  entry.loader = loader;
+  return entry;
+});
+
 config.plugins = [
   new webpack.HotModuleReplacementPlugin(),
   new webpack.DefinePlugin(env)
