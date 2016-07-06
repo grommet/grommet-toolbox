@@ -27,13 +27,13 @@ export function getOptions (opts) {
 
     const jsLoader = options.jsLoader || {
       test: /\.jsx?$/,
-      loader: 'react-hot!babel-loader',
+      loader: 'babel',
       exclude: /(node_modules|bower_components|src\/lib)/
     };
 
     const scssLoader = options.scssLoader || {
       test: /\.scss$/,
-      loader: 'style!css!sass?outputStyle=expanded&' +
+      loader: 'style!css!sass?outputStyle=compressed&' +
         'includePaths[]=' +
         (encodeURIComponent(
           path.resolve(options.base || process.cwd(), './node_modules')
