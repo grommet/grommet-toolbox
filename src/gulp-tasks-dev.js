@@ -128,7 +128,18 @@ export function devTasks (gulp, opts) {
         const openHost = (host === '0.0.0.0') ? 'localhost' : host;
         console.log('[webpack-dev-server] started: opening the app in your default browser...');
         const suffix = options.publicPath ? options.publicPath + '/' : '';
-        const openURL = protocol + '://' + openHost + ':' + options.devServerPort + '/webpack-dev-server/' + suffix;
+        const openURL = protocol + '://' + openHost + ':' + options.devServerPort + suffix;
+
+        var openMsg = '[webpack-dev-server] started: ';
+        if (argv.bg) {
+          openMsg += `app available at location: \u001b[33m${openURL}\u001b[39m`;
+        } else {
+          openMsg += 'opening the app in your default browser...';
+        }
+
+        console.log(openMsg);
+        if (argv.bg) return;
+
         gulp.src(__filename)
         .pipe(gulpOpen({
           uri: openURL
