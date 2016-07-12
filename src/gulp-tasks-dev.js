@@ -129,7 +129,7 @@ export function devTasks (gulp, opts) {
         const suffix = options.publicPath ? options.publicPath + '/' : '';
         const openURL = protocol + '://' + openHost + ':' + options.devServerPort + suffix;
 
-        var openMsg = '[webpack-dev-server] started: ';
+        let openMsg = '[webpack-dev-server] started: ';
         if (argv.skipOpen) {
           openMsg += `app available at location: \u001b[33m${openURL}\u001b[39m`;
         } else {
