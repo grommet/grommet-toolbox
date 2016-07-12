@@ -54,6 +54,9 @@ Grommet-toolbox augments gulp object with these additional tasks:
 * **gulp scsslint**: uses `scssAssets` option to lint your Sass code. `scsslint` option must also be set to true.
 * **gulp jslint**: uses `jsAssets` and `testPaths` options to lint your JavaScript code.
 * **gulp dev**: starts a webpack dev server with hot reloading. See options for example configuration.
+  * `--config`: Set the path of the config file to use.
+  * `--skip-preprocess`: Skips preprocess tasks.
+  * `--skip-open`: Skips opening dev server url in a browser.
 * **gulp dist**: prepares your application/library for production.
 * **gulp sync**: uses `sync` option to sync distribution content to a remote server.
 * **gulp test**: uses `testPaths` option to execute tests based on Tape.
