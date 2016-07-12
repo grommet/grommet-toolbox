@@ -131,14 +131,14 @@ export function devTasks (gulp, opts) {
         const openURL = protocol + '://' + openHost + ':' + options.devServerPort + suffix;
 
         var openMsg = '[webpack-dev-server] started: ';
-        if (argv.bg) {
+        if (argv.skipOpen) {
           openMsg += `app available at location: \u001b[33m${openURL}\u001b[39m`;
         } else {
           openMsg += 'opening the app in your default browser...';
         }
 
         console.log(openMsg);
-        if (argv.bg) return;
+        if (argv.skipOpen) return;
 
         gulp.src(__filename)
         .pipe(gulpOpen({
