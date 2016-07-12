@@ -126,7 +126,6 @@ export function devTasks (gulp, opts) {
       } else {
         const protocol = (options.devServer && options.devServer.https) ? 'https' : 'http';
         const openHost = (host === '0.0.0.0') ? 'localhost' : host;
-        console.log('[webpack-dev-server] started: opening the app in your default browser...');
         const suffix = options.publicPath ? options.publicPath + '/' : '';
         const openURL = protocol + '://' + openHost + ':' + options.devServerPort + suffix;
 
