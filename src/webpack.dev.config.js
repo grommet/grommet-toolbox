@@ -2,6 +2,7 @@ require('babel-register');
 
 import webpack from 'webpack';
 import deepAssign from 'deep-assign';
+import unique from './utils/unique';
 
 import gulpOptionsBuilder from './gulp-options-builder';
 const options = gulpOptionsBuilder();
@@ -56,18 +57,18 @@ if (options.webpack.plugins) {
   );
 }
 
-config.resolve.extensions = deepAssign(
-  config.resolve.extensions || [],
-  ['', '.js', '.json', '.htm', '.html', '.scss', '.md', '.svg']
+config.resolve.extensions = unique(
+  config.resolve.extensions,
+  ['', '.react', '.jsx', '.js', '.json', '.htm', '.html', '.scss', '.md', '.svg']
 );
 
-config.resolve.modulesDirectories = deepAssign(
-  config.resolve.modulesDirectories || [],
+config.resolve.modulesDirectories = unique(
+  config.resolve.modulesDirectories,
   ['node_modules/grommet/node_modules', 'node_modules']
 );
 
-config.resolveLoader.modulesDirectories = deepAssign(
-  config.resolveLoader.modulesDirectories || [],
+config.resolveLoader.modulesDirectories = unique(
+  config.resolveLoader.modulesDirectories,
   ['node_modules/grommet/node_modules', 'node_modules']
 );
 

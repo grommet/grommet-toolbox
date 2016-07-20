@@ -26,7 +26,7 @@ export function getOptions (opts) {
     options.dist = options.dist || path.resolve(process.cwd(), 'dist');
 
     const jsLoader = options.jsLoader || {
-      test: /\.jsx?$/,
+      test: /\.jsx?|.react$/,
       loader: 'babel',
       exclude: /(node_modules|bower_components|src\/lib)/
     };
