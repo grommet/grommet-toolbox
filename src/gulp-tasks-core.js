@@ -29,6 +29,7 @@ export function coreTasks (gulp, opts) {
           const assets = [asset];
           if (copyAsset.ignores) {
             copyAsset.ignores.forEach((ignore) => {
+              assets.push('!' + asset.replace('**', '') + ignore + '/**');
               assets.push('!' + asset + ignore);
               assets.push('!' + asset + '**/' + ignore);
               assets.push('!' + asset + '**/' + ignore + '/**');
