@@ -84,10 +84,6 @@ export function getOptions (opts) {
       {
         test: /\.otf$/,
         loader: 'file-loader?mimetype=application/font/opentype'
-      },
-      {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader'
       }
     );
   }
