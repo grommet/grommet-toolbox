@@ -13,9 +13,10 @@ const env = deepAssign({}, options.env, {
 });
 
 delete options.webpack.entry;
+const protocol = (options.devServer && options.devServer.https) ? 'https' : 'http';
 const config = deepAssign({
   entry: [
-    'webpack-dev-server/client/index.js?http://' + (options.devServerHost || 'localhost') + ':' + (options.devServerPort || '8080'),
+    'webpack-dev-server/client/index.js?' + protocol + '://' + (options.devServerHost || 'localhost') + ':' + (options.devServerPort || '8080'),
     'webpack/hot/dev-server',
     './' + options.mainJs
   ],
