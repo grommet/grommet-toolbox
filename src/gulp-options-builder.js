@@ -23,6 +23,8 @@ export function getOptions (opts) {
 
     options.scsslint = options.scsslint === undefined ? true : options.scsslint;
 
+    options.jslint = options.jslint === undefined ? true : options.jslint;
+
     options.dist = options.dist || path.resolve(process.cwd(), 'dist');
 
     const jsLoader = options.jsLoader || {

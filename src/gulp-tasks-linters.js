@@ -46,17 +46,20 @@ export function linterTasks (gulp, opts) {
   });
 
   gulp.task('jslint', () => {
-    const eslintRules = deepAssign({
-      configFile: esLintPath
-    }, eslintOverride);
-    return gulp.src([].concat(options.jsAssets || []).concat(options.testPaths || []))
-      .pipe(cache(eslint(eslintRules), {
-        success: (linted) => linted.eslint && !linted.eslint.messages.length,
-        value: (linted) => ({eslint: linted.eslint})
-      }))
-      .pipe(eslint.formatEach())
-      .pipe(eslint.failAfterError())
-      .on('error', () => process.exit(1));
+    if (options.jslint) {
+      const eslintRules = deepAssign({
+        configFile: esLintPath
+      }, eslintOverride);
+      return gulp.src([].concat(options.jsAssets || []).concat(options.testPaths || []))
+        .pipe(cache(eslint(eslintRules), {
+          success: (linted) => linted.eslint && !linted.eslint.messages.length,
+          value: (linted) => ({eslint: linted.eslint})
+        }))
+        .pipe(eslint.formatEach())
+        .pipe(eslint.failAfterError())
+        .on('error', () => process.exit(1));
+      }
+    return false;
   });
 };
 
