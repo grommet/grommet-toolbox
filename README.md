@@ -121,7 +121,7 @@ grommet-toolbox will look into your application's root folder and extract the co
 | publicPath | string | Optional. Your main app context | '/' | `publichPath: '/docs'` |
 | scssAssets | array | Optional. Location of your Sass Assets | [] | `scssAssets: ['src/scss/**/*.scss']` |
 | scssLoader | object | Optional. If you want to use another webpack loader for your SCSS Assets | react-loader | `{ test: /\.scss?$/, loader: 'file?name=assets/css/[name].css!sass'}` |
-| scsslint | boolean | Optional. If true, will run Sass linting | false | `scsslint: true` |
+| scsslint | boolean | Optional. If false, it will skip Sass linting | true | `scsslint: false` |
 | sync | object | Optional. Syncs your content to a remote server | undefined | `sync: { hostname: 'grommet.io', username: 'grommet', remoteDestination: '/var/www/html/'}` |
 | testPaths | array | Optional. Location of your test assets | undefined | `testPaths: ['test/**/*.js']` |
 | webpack | object | Optional. Additional webpack options to be used in gulp dist | undefined | [See Webpack Configuration](https://webpack.github.io/docs/configuration.html) |
