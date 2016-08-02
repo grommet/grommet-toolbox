@@ -41,7 +41,8 @@ var opts = {
   mainJs: 'src/js/index.js',
   mainScss: 'src/scss/index.scss',
   devServerPort: 9000,
-  scsslint: true
+  scsslint: true,
+  jslint: true
 };
 
 grommetToolbox(gulp, opts);
@@ -117,6 +118,7 @@ grommet-toolbox will look into your application's root folder and extract the co
 | icons | object | Optional. Converts raw icons to a Grommet icon | undefined | [See icon WIKI](https://github.com/grommet/grommet-toolbox/wiki/icon-WIKI) |
 | jsAssets | array | Required. Location of your JavaScript Assets | [] | `jsAssets: ['src/js/**/*.js']` |
 | jsLoader | object | Optional. If you want to use another webpack loader for your JavaScript Assets | react-loader | `{ test: /\.jsx?$/, loader: 'react-hot!babel-loader', exclude: /(node_modules|bower_components|src\/lib)/ }` |
+| jslint | boolean | Optional. If true, will run Js linting | true | `jslint: false` |
 | mainJs |  string | Required. Location of your main JavaScript file | undefined | `mainJs: 'src/js/index.js'` |
 | publicPath | string | Optional. Your main app context | '/' | `publichPath: '/docs'` |
 | scssAssets | array | Optional. Location of your Sass Assets | [] | `scssAssets: ['src/scss/**/*.scss']` |
