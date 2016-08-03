@@ -50,7 +50,7 @@ export function distTasks (gulp, opts) {
 
     if (Array.isArray(config)) {
       var doneCount = 0;
-      return config.forEach((c, index) => {
+      config.forEach((c, index) => {
         gulp.src(options.mainJs)
           .pipe(gulpWebpack(c))
           .pipe(gulp.dest(options.dist)).on('end', () => {
@@ -61,7 +61,7 @@ export function distTasks (gulp, opts) {
           });
       });
     } else {
-      return gulp.src(options.mainJs)
+      gulp.src(options.mainJs)
         .pipe(gulpWebpack(config))
         .pipe(gulp.dest(options.dist)).on('end', done);
     }
