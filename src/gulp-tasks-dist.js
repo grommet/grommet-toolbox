@@ -36,7 +36,7 @@ export function distTasks (gulp, opts) {
     }
   });
 
-  gulp.task('dist', ['dist-preprocess'], () => {
+  gulp.task('dist', ['dist-preprocess'], (done) => {
 
     let webpackConfigPath = path.resolve(
       __dirname, 'webpack.dist.config.js'
@@ -48,9 +48,23 @@ export function distTasks (gulp, opts) {
 
     const config = require(webpackConfigPath);
 
-    return gulp.src(options.mainJs)
-      .pipe(gulpWebpack(config))
-      .pipe(gulp.dest(options.dist));
+    if (Array.isArray(config)) {
+      var doneCount = 0;
+      return config.forEach((c, index) => {
+        gulp.src(options.mainJs)
+          .pipe(gulpWebpack(c))
+          .pipe(gulp.dest(options.dist)).on('end', () => {
+            doneCount++;
+            if (doneCount === config.length) {
+              done();
+            }
+          });
+      });
+    } else {
+      return gulp.src(options.mainJs)
+        .pipe(gulpWebpack(config))
+        .pipe(gulp.dest(options.dist)).on('end', done);
+    }
   });
 };
 
