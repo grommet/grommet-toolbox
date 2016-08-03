@@ -21,6 +21,12 @@ export function getOptions (opts) {
 
     options = opts || {};
 
+    options.lintCache = opts.lintCache !== undefined ? opts.lintCache : true;
+
+    if (options.scsslint || options.scsslint === false) {
+      console.warn('[grommet-toolbox] This option has been deprecated and will be removed in the next major release.');
+    }
+
     options.scsslint = options.scsslint === undefined ? true : options.scsslint;
 
     options.dist = options.dist || path.resolve(process.cwd(), 'dist');

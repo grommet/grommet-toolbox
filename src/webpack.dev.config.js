@@ -27,7 +27,7 @@ const config = deepAssign({
     publicPath: '/'
   },
 
-  devtool: 'eval'
+  devtool: 'eval-source-map'
 
 }, options.webpack);
 

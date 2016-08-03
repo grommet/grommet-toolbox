@@ -40,8 +40,7 @@ var opts = {
   jsAssets: ['src/js/**/*.js'],
   mainJs: 'src/js/index.js',
   mainScss: 'src/scss/index.scss',
-  devServerPort: 9000,
-  scsslint: true
+  devServerPort: 9000
 };
 
 grommetToolbox(gulp, opts);
@@ -51,7 +50,7 @@ Grommet-toolbox augments gulp object with these additional tasks:
 
 * **gulp copy**: uses `copyAssets` option to move files to distribution folder.
 * **gulp generate-icons**: uses `icons` option to convert raw svg icons to Grommet icons.
-* **gulp scsslint**: uses `scssAssets` option to lint your Sass code. `scsslint` option must also be set to true.
+* **gulp scsslint**: uses `scssAssets` option to lint your Sass code.
 * **gulp jslint**: uses `jsAssets` and `testPaths` options to lint your JavaScript code.
 * **gulp dev**: starts a webpack dev server with hot reloading. See options for example configuration.
   * `--config`: Set the path of the config file to use.
@@ -82,8 +81,7 @@ export default {
   jsAssets: ['src/js/**/*.js'],
   mainJs: 'src/js/index.js',
   mainScss: 'src/scss/index.scss',
-  devServerPort: 9000,
-  scsslint: true
+  devServerPort: 9000
 };
 ```
 
@@ -117,11 +115,12 @@ grommet-toolbox will look into your application's root folder and extract the co
 | icons | object | Optional. Converts raw icons to a Grommet icon | undefined | [See icon WIKI](https://github.com/grommet/grommet-toolbox/wiki/icon-WIKI) |
 | jsAssets | array | Required. Location of your JavaScript Assets | [] | `jsAssets: ['src/js/**/*.js']` |
 | jsLoader | object | Optional. If you want to use another webpack loader for your JavaScript Assets | react-loader | `{ test: /\.jsx?$/, loader: 'react-hot!babel-loader', exclude: /(node_modules|bower_components|src\/lib)/ }` |
+| lintCache |  boolean | Optional. If true, it will skip caching for linters (build time increases). | true | `lintCache: false |
 | mainJs |  string | Required. Location of your main JavaScript file | undefined | `mainJs: 'src/js/index.js'` |
 | publicPath | string | Optional. Your main app context | '/' | `publichPath: '/docs'` |
 | scssAssets | array | Optional. Location of your Sass Assets | [] | `scssAssets: ['src/scss/**/*.scss']` |
 | scssLoader | object | Optional. If you want to use another webpack loader for your SCSS Assets | react-loader | `{ test: /\.scss?$/, loader: 'file?name=assets/css/[name].css!sass'}` |
-| scsslint | boolean | Optional. If false, it will skip Sass linting | true | `scsslint: false` |
+| scsslint | boolean | (deprecated) Optional. If false, it will skip Sass linting | true | `scsslint: false` |
 | sync | object | Optional. Syncs your content to a remote server | undefined | `sync: { hostname: 'grommet.io', username: 'grommet', remoteDestination: '/var/www/html/'}` |
 | testPaths | array | Optional. Location of your test assets | undefined | `testPaths: ['test/**/*.js']` |
 | webpack | object | Optional. Additional webpack options to be used in gulp dist | undefined | [See Webpack Configuration](https://webpack.github.io/docs/configuration.html) |

@@ -49,11 +49,20 @@ export function linterTasks (gulp, opts) {
     const eslintRules = deepAssign({
       configFile: esLintPath
     }, eslintOverride);
-    return gulp.src([].concat(options.jsAssets || []).concat(options.testPaths || []))
-      .pipe(cache(eslint(eslintRules), {
+
+    let jslintPipe = eslint(eslintRules);
+
+    if (options.lintCache) {
+      jslintPipe = cache(jslintPipe, {
         success: (linted) => linted.eslint && !linted.eslint.messages.length,
         value: (linted) => ({eslint: linted.eslint})
-      }))
+      });
+    } else {
+      console.warn('Lint cache is currently disabled');
+    }
+
+    return gulp.src([].concat(options.jsAssets || []).concat(options.testPaths || []))
+      .pipe(jslintPipe)
       .pipe(eslint.formatEach())
       .pipe(eslint.failAfterError())
       .on('error', () => process.exit(1));
