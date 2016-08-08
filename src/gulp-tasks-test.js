@@ -7,6 +7,24 @@ import tapSpec from 'tap-spec';
 
 import gulpOptionsBuilder from './gulp-options-builder';
 
+function setupJsdom () {
+  // Configure JSDOM and set global variables
+  // to simulate a browser environment for tests.
+  const exposedProperties = ['window', 'navigator', 'document'];
+
+  global.document = require('jsdom').jsdom('');
+  global.window = document.defaultView;
+  Object.keys(document.defaultView).forEach((property) => {
+    if (typeof global[property] === 'undefined') {
+      exposedProperties.push(property);
+      global[property] = document.defaultView[property];
+    }
+  });
+
+  global.navigator = {
+    userAgent: 'node.js'
+  };
+}
 export function testTasks (gulp, opts) {
 
   const envs = env.set({
@@ -20,10 +38,12 @@ export function testTasks (gulp, opts) {
   let watch;
 
   gulp.task('test', () => {
+    setupJsdom();
     if (watch) {
       process.env.NODE_ENV = 'test';
     }
     if (options.testPaths) {
+      setupJsdom();
       return gulp.src(options.testPaths)
         .pipe(gulpif(!watch, envs))
         .pipe(tape({
@@ -48,7 +68,9 @@ export function testTasks (gulp, opts) {
   });
 
   gulp.task('test:coverage', (done) => {
+    setupJsdom();
     if (options.testPaths) {
+      setupJsdom();
       gulp.src(options.jsAssets)
         .pipe(istanbul({
           instrumenter: require('isparta').Instrumenter,
