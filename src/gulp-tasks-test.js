@@ -38,7 +38,6 @@ export function testTasks (gulp, opts) {
   let watch;
 
   gulp.task('test', () => {
-    setupJsdom();
     if (watch) {
       process.env.NODE_ENV = 'test';
     }
@@ -68,7 +67,6 @@ export function testTasks (gulp, opts) {
   });
 
   gulp.task('test:coverage', (done) => {
-    setupJsdom();
     if (options.testPaths) {
       setupJsdom();
       gulp.src(options.jsAssets)
