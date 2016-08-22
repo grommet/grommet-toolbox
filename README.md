@@ -125,6 +125,7 @@ grommet-toolbox will look into your application's root folder and extract the co
 | testPaths | array | Optional. Location of your test assets | undefined | `testPaths: ['test/**/*.js']` |
 | webpack | object | Optional. Additional webpack options to be used in gulp dist | undefined | [See Webpack Configuration](https://webpack.github.io/docs/configuration.html) |
 | webpackProfile | string | Optional. Location to save webpack profile stats in json format. | undefined | `webpackProfile: './stats.json'` |
+| webpackDashboard | boolean\|object | Optional. Render webpack output as dashboard summary (via [Webpack Dashboard](https://github.com/FormidableLabs/webpack-dashboard)). If object is passed, it is used as the config settings for the dashboard | undefined | `webpackDashboard: { minimal: true } |
 
 ### Example
 
