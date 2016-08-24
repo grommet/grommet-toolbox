@@ -24,7 +24,7 @@ export function getOptions (opts) {
     options.lintCache = opts.lintCache !== undefined ? opts.lintCache : true;
 
     if (options.scsslint || options.scsslint === false) {
-      console.warn('[grommet-toolbox] This option has been deprecated and will be removed in the next major release.');
+      console.warn('[grommet-toolbox] scsslint option has been deprecated and will be removed in the next major release. SCSS linting is always enabled now.');
     }
 
     options.scsslint = options.scsslint === undefined ? true : options.scsslint;
