@@ -1,30 +1,10 @@
 import env from 'gulp-env';
-import istanbul from 'gulp-babel-istanbul';
-import tape from 'gulp-tape';
+import jest from 'gulp-jest';
 import gulpif from 'gulp-if';
 import gutil from 'gulp-util';
-import tapSpec from 'tap-spec';
 
 import gulpOptionsBuilder from './gulp-options-builder';
 
-function setupJsdom () {
-  // Configure JSDOM and set global variables
-  // to simulate a browser environment for tests.
-  const exposedProperties = ['window', 'navigator', 'document'];
-
-  global.document = require('jsdom').jsdom('');
-  global.window = document.defaultView;
-  Object.keys(document.defaultView).forEach((property) => {
-    if (typeof global[property] === 'undefined') {
-      exposedProperties.push(property);
-      global[property] = document.defaultView[property];
-    }
-  });
-
-  global.navigator = {
-    userAgent: 'node.js'
-  };
-}
 export function testTasks (gulp, opts) {
 
   const envs = env.set({
@@ -42,12 +22,39 @@ export function testTasks (gulp, opts) {
       process.env.NODE_ENV = 'test';
     }
     if (options.testPaths) {
-      setupJsdom();
       return gulp.src(options.testPaths)
         .pipe(gulpif(!watch, envs))
-        .pipe(tape({
-          reporter: tapSpec(),
-          bail: true
+        .pipe(jest({
+          automock: false,
+          bail: !watch,
+          modulePathIgnorePatterns: [
+            "<rootDir>/dist/",
+            "<rootDir>/templates/"
+          ],
+          rootDir: options.base || process.cwd(),
+          watch: watch
+        }))
+        .on('error', (error) => {
+          gutil.log(error.message);
+          process.exit(1);
+        })
+        .pipe(gulpif(!watch, envs.reset));
+    }
+  });
+
+  gulp.task('test:update', () => {
+    if (options.testPaths) {
+      return gulp.src(options.testPaths)
+        .pipe(gulpif(!watch, envs))
+        .pipe(jest({
+          automock: false,
+          bail: true,
+          modulePathIgnorePatterns: [
+            "<rootDir>/dist/",
+            "<rootDir>/templates/"
+          ],
+          rootDir: options.base || process.cwd(),
+          updateSnapshot: true
         }))
         .on('error', (error) => {
           gutil.log(error.message);
@@ -68,31 +75,30 @@ export function testTasks (gulp, opts) {
 
   gulp.task('test:coverage', (done) => {
     if (options.testPaths) {
-      setupJsdom();
-      gulp.src(options.jsAssets)
-        .pipe(istanbul({
-          instrumenter: require('isparta').Instrumenter,
-          includeUntested: true
+      gulp.src(options.testPaths)
+        .pipe(envs)
+        .pipe(jest({
+          automock: false,
+          bail: true,
+          collectCoverageFrom: options.jsAssets,
+          collectCoverage: true,
+          coverageReporters: ['lcov'],
+          modulePathIgnorePatterns: [
+            "<rootDir>/dist/",
+            "<rootDir>/templates/"
+          ],
+          rootDir: options.base || process.cwd()
         }))
-        .pipe(istanbul.hookRequire()).on('finish', () => {
-          gulp.src(options.testPaths)
-            .pipe(envs)
-            .pipe(tape({
-              reporter: tapSpec(),
-              bail: true
-            }))
-            .on('error', (error) => {
-              gutil.log(error.message);
-              process.exit(1);
-            })
-            .pipe(envs.reset)
-            .pipe(istanbul.writeReports({
-              dir: './coverage',
-              reporters: ['lcov']
-            })).on('end', () => {
-              console.log('Test coverage report available at coverage/lcov-report/index.html');
-              done();
-            });
+        .on('error', (error) => {
+          gutil.log(error.message);
+          process.exit(1);
+        })
+        .pipe(envs.reset)
+        .on('end', () => {
+          console.log(
+            'Test coverage report available at coverage/lcov-report/index.html'
+          );
+          done();
         });
     } else {
       done();
