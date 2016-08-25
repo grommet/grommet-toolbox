@@ -61,7 +61,7 @@ Grommet-toolbox augments gulp object with these additional tasks:
 * **gulp test**: uses `testPaths` option to execute tests based on Tape.
 * **gulp test:watch**: runs tests and watch for changes to execute the tests again.
 * **gulp test:coverage**: runs tests and generates a code coverage report.
-* * **gulp test:update**: runs all the tests and updates the Jest snapshots for the project.
+* **gulp test:update**: runs all the tests and updates the Jest snapshots for the project.
 * **gulp pack**: uses the package.json dependencies object to create a compressed file with all the dependencies included.
 
 ### Recommended Usage
