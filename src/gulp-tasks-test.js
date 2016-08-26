@@ -26,7 +26,6 @@ export function testTasks (gulp, opts) {
         .pipe(gulpif(!watch, envs))
         .pipe(jest({
           automock: false,
-          bail: !watch,
           modulePathIgnorePatterns: [
             "<rootDir>/dist/",
             "<rootDir>/templates/"
@@ -48,7 +47,6 @@ export function testTasks (gulp, opts) {
         .pipe(gulpif(!watch, envs))
         .pipe(jest({
           automock: false,
-          bail: true,
           modulePathIgnorePatterns: [
             "<rootDir>/dist/",
             "<rootDir>/templates/"
@@ -79,7 +77,6 @@ export function testTasks (gulp, opts) {
         .pipe(envs)
         .pipe(jest({
           automock: false,
-          bail: true,
           collectCoverageFrom: options.jsAssets,
           collectCoverage: true,
           coverageReporters: ['lcov'],
