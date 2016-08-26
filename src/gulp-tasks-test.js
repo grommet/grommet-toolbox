@@ -73,9 +73,9 @@ export function testTasks (gulp, opts) {
     runSequence('test', 'test:watcher');
   });
 
-  gulp.task('test:coverage', (done) => {
+  gulp.task('test:coverage', () => {
     if (options.testPaths) {
-      gulp.src(options.testPaths)
+      return gulp.src(options.testPaths)
         .pipe(envs)
         .pipe(jest({
           automock: false,
@@ -94,14 +94,11 @@ export function testTasks (gulp, opts) {
           process.exit(1);
         })
         .pipe(envs.reset)
-        .on('end', () => {
+        .on('finish', () => {
           console.log(
             'Test coverage report available at coverage/lcov-report/index.html'
           );
-          done();
         });
-    } else {
-      done();
     }
   });
 };
