@@ -30,8 +30,12 @@ export function testTasks (gulp, opts) {
             "<rootDir>/dist/",
             "<rootDir>/templates/"
           ],
+          testPathIgnorePatterns: options.testPaths.filter(
+            (path) => path.startsWith('!')
+          ).map((path) => path.substring(1)),
           rootDir: options.base || process.cwd(),
-          watch: watch
+          watch: watch,
+          verbose: true
         }))
         .on('error', (error) => {
           gutil.log(error.message);
@@ -51,6 +55,9 @@ export function testTasks (gulp, opts) {
             "<rootDir>/dist/",
             "<rootDir>/templates/"
           ],
+          testPathIgnorePatterns: options.testPaths.filter(
+            (path) => path.startsWith('!')
+          ).map((path) => path.substring(1)),
           rootDir: options.base || process.cwd(),
           updateSnapshot: true
         }))
@@ -84,6 +91,9 @@ export function testTasks (gulp, opts) {
             "<rootDir>/dist/",
             "<rootDir>/templates/"
           ],
+          testPathIgnorePatterns: options.testPaths.filter(
+            (path) => path.startsWith('!')
+          ).map((path) => path.substring(1)),
           rootDir: options.base || process.cwd()
         }))
         .on('error', (error) => {
