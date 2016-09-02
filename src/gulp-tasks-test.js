@@ -25,20 +25,23 @@ export function testTasks (gulp, opts) {
       return gulp.src(options.testPaths)
         .pipe(gulpif(!watch, envs))
         .pipe(jest({
-          modulePathIgnorePatterns: [
-            "<rootDir>/dist/",
-            "<rootDir>/templates/"
-          ],
-          testPathIgnorePatterns: options.testPaths.filter(
-            (path) => path.startsWith('!')
-          ).map((path) => path.substring(1)),
-          rootDir: options.base || process.cwd(),
-          watch: watch,
-          verbose: true
+          config: {
+            modulePathIgnorePatterns: [
+              "<rootDir>/dist/",
+              "<rootDir>/templates/"
+            ],
+            testPathIgnorePatterns: options.testPaths.filter(
+              (path) => path.startsWith('!')
+            ).map((path) => path.substring(1)),
+            rootDir: options.base || process.cwd(),
+            verbose: true
+          }
         }))
         .on('error', (error) => {
           gutil.log(error.message);
-          process.exit(1);
+          if (!watch) {
+            process.exit(1);
+          }
         })
         .pipe(gulpif(!watch, envs.reset));
     }
@@ -49,15 +52,17 @@ export function testTasks (gulp, opts) {
       return gulp.src(options.testPaths)
         .pipe(gulpif(!watch, envs))
         .pipe(jest({
-          modulePathIgnorePatterns: [
-            "<rootDir>/dist/",
-            "<rootDir>/templates/"
-          ],
-          testPathIgnorePatterns: options.testPaths.filter(
-            (path) => path.startsWith('!')
-          ).map((path) => path.substring(1)),
-          rootDir: options.base || process.cwd(),
-          updateSnapshot: true
+          config: {
+            modulePathIgnorePatterns: [
+              "<rootDir>/dist/",
+              "<rootDir>/templates/"
+            ],
+            testPathIgnorePatterns: options.testPaths.filter(
+              (path) => path.startsWith('!')
+            ).map((path) => path.substring(1)),
+            rootDir: options.base || process.cwd(),
+            updateSnapshot: true
+          }
         }))
         .on('error', (error) => {
           gutil.log(error.message);
@@ -81,17 +86,19 @@ export function testTasks (gulp, opts) {
       return gulp.src(options.testPaths)
         .pipe(envs)
         .pipe(jest({
-          collectCoverageFrom: options.jsAssets,
-          collectCoverage: true,
-          coverageReporters: ['lcov'],
-          modulePathIgnorePatterns: [
-            "<rootDir>/dist/",
-            "<rootDir>/templates/"
-          ],
-          testPathIgnorePatterns: options.testPaths.filter(
-            (path) => path.startsWith('!')
-          ).map((path) => path.substring(1)),
-          rootDir: options.base || process.cwd()
+          config: {
+            collectCoverageFrom: options.jsAssets,
+            collectCoverage: true,
+            coverageReporters: ['lcov'],
+            modulePathIgnorePatterns: [
+              "<rootDir>/dist/",
+              "<rootDir>/templates/"
+            ],
+            testPathIgnorePatterns: options.testPaths.filter(
+              (path) => path.startsWith('!')
+            ).map((path) => path.substring(1)),
+            rootDir: options.base || process.cwd()
+          }
         }))
         .on('error', (error) => {
           gutil.log(error.message);
