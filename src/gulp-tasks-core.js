@@ -12,7 +12,10 @@ import pathIsAbsolute from 'path-is-absolute';
 import gulpOptionsBuilder from './gulp-options-builder';
 
 let loaded;
+
 export function coreTasks (gulp, opts) {
+  const options = gulpOptionsBuilder(opts);
+  
   if (!loaded) {
     const runSequence = require('run-sequence').use(gulp);
 
@@ -156,6 +159,9 @@ export function coreTasks (gulp, opts) {
 
     gulp.task('clear-cache', (done) => cache.clearAll(done));
 
+    gulp.task('pre-commit', options.preCommitTasks ||
+      ['jslint','scsslint','test']);
+
     gulp.task('node-clean', (done) => {
       require('rimraf')(path.resolve(process.cwd(), 'node_modules'), (err) => {
         if (err) {
@@ -167,8 +173,6 @@ export function coreTasks (gulp, opts) {
 
     loaded = true;
   }
-
-  const options = gulpOptionsBuilder(opts);
 
   if (options.base) {
     process.chdir(options.base);
