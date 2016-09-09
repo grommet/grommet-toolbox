@@ -9,16 +9,12 @@ import deepAssign from 'deep-assign';
 
 import gulpOptionsBuilder from './gulp-options-builder';
 import gulpTasksCore from './gulp-tasks-core';
-import gulpTasksTest from './gulp-tasks-test';
-import gulpTasksLinters from './gulp-tasks-linters';
 
 export function devTasks (gulp, opts) {
 
   const runSequence = require('run-sequence').use(gulp);
 
   gulpTasksCore(gulp, opts);
-  gulpTasksTest(gulp, opts);
-  gulpTasksLinters(gulp, opts);
 
   const options = gulpOptionsBuilder(opts);
 
