@@ -97,7 +97,8 @@ export function testTasks (gulp, opts) {
             testPathIgnorePatterns: options.testPaths.filter(
               (path) => path.startsWith('!')
             ).map((path) => path.substring(1)),
-            rootDir: options.base || process.cwd()
+            rootDir: options.base || process.cwd(),
+            runInBand: true
           }
         }))
         .on('error', (error) => {
