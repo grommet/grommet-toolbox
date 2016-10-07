@@ -53,7 +53,10 @@ export function linterTasks (gulp, opts) {
     let jslintPipe = eslint(eslintRules);
 
     if (options.lintCache) {
+      const eslintRuleSet = fs.readFileSync(eslintRules.configFile, 'utf8');
+
       jslintPipe = cache(jslintPipe, {
+        key: (file) => eslintRuleSet + file.contents.toString('utf8'),
         success: (linted) => linted.eslint && !linted.eslint.messages.length,
         value: (linted) => ({eslint: linted.eslint})
       });
