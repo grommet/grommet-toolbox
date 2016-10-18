@@ -15,7 +15,7 @@ let loaded;
 
 export function coreTasks (gulp, opts) {
   const options = gulpOptionsBuilder(opts);
-  
+
   if (!loaded) {
     const runSequence = require('run-sequence').use(gulp);
 

@@ -22,9 +22,11 @@ export function devTasks (gulp, opts) {
     if (argv.skipPreprocess) {
       callback();
     } else if (options.devPreprocess) {
-      runSequence('preprocess', options.devPreprocess, 'copy', callback);
+      runSequence(
+        'clean', 'generate-icons', options.devPreprocess, 'copy', callback
+      );
     } else {
-      runSequence('preprocess', 'copy', callback);
+      runSequence('clean', 'generate-icons', 'copy', callback);
     }
   });
 
