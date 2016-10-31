@@ -2,6 +2,8 @@ import env from 'gulp-env';
 import jest from 'gulp-jest';
 import gulpif from 'gulp-if';
 import gutil from 'gulp-util';
+import yargs from 'yargs';
+const argv = yargs.argv;
 
 import gulpOptionsBuilder from './gulp-options-builder';
 
@@ -35,7 +37,8 @@ export function testTasks (gulp, opts) {
             ).map((path) => path.substring(1)),
             rootDir: options.base || process.cwd(),
             verbose: true
-          }
+          },
+          ...argv
         }))
         .on('error', (error) => {
           gutil.log(error.message);
@@ -62,7 +65,8 @@ export function testTasks (gulp, opts) {
             ).map((path) => path.substring(1)),
             rootDir: options.base || process.cwd(),
             updateSnapshot: true
-          }
+          },
+          ...argv
         }))
         .on('error', (error) => {
           gutil.log(error.message);
@@ -99,7 +103,7 @@ export function testTasks (gulp, opts) {
             ).map((path) => path.substring(1)),
             rootDir: options.base || process.cwd()
           },
-          runInBand: true
+          ...argv
         }))
         .on('error', (error) => {
           gutil.log(error.message);
