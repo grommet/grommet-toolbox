@@ -1,7 +1,5 @@
 import gulpWebpack from 'webpack-stream';
 import path from 'path';
-import yargs from 'yargs';
-const argv = yargs.argv;
 
 import gulpOptionsBuilder from './gulp-options-builder';
 import gulpTasksCore from './gulp-tasks-core';
@@ -19,9 +17,12 @@ export function distTasks (gulp, opts) {
   const options = gulpOptionsBuilder(opts);
 
   gulp.task('dist-preprocess', (callback) => {
-    if (argv.skipPreprocess) {
+    if (!options.argv.preprocess) {
       callback();
-    } else if (options.distPreprocess) {
+      return;
+    }
+
+    if (options.distPreprocess) {
       if (process.env.CI) {
         runSequence('preprocess', options.distPreprocess, 'copy', callback);
       } else {
@@ -42,8 +43,8 @@ export function distTasks (gulp, opts) {
       __dirname, 'webpack.dist.config.js'
     );
 
-    if (argv.config) {
-      webpackConfigPath = path.resolve(argv.config);
+    if (options.argv.config) {
+      webpackConfigPath = path.resolve(options.argv.config);
     }
 
     const config = require(webpackConfigPath);

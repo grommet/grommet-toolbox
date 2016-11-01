@@ -1,6 +1,4 @@
 import webpack from 'webpack';
-import yargs from 'yargs';
-const argv = yargs.argv;
 import WebpackDevServer from 'webpack-dev-server';
 import gulpOpen from 'gulp-open';
 import path from 'path';
@@ -19,9 +17,12 @@ export function devTasks (gulp, opts) {
   const options = gulpOptionsBuilder(opts);
 
   gulp.task('dev-preprocess', (callback) => {
-    if (argv.skipPreprocess) {
+    if (!options.argv.preprocess) {
       callback();
-    } else if (options.devPreprocess) {
+      return;
+    }
+
+    if (options.devPreprocess) {
       runSequence(
         'clean', 'generate-icons', options.devPreprocess, 'copy', callback
       );
@@ -36,8 +37,8 @@ export function devTasks (gulp, opts) {
       __dirname, 'webpack.dev.config.js'
     );
 
-    if (argv.config) {
-      webpackConfigPath = path.resolve(argv.config);
+    if (options.argv.config) {
+      webpackConfigPath = path.resolve(options.argv.config);
     }
 
     const config = require(webpackConfigPath);
@@ -128,14 +129,14 @@ export function devTasks (gulp, opts) {
         const openURL = protocol + '://' + openHost + ':' + options.devServerPort + suffix;
 
         let openMsg = '[webpack-dev-server] started: ';
-        if (argv.skipOpen) {
+        if (!options.argv.open) {
           openMsg += `app available at location: \u001b[33m${openURL}\u001b[39m`;
         } else {
           openMsg += 'opening the app in your default browser...';
         }
 
         console.log(openMsg);
-        if (argv.skipOpen) return;
+        if (!options.argv.open) return;
 
         gulp.src(__filename)
         .pipe(gulpOpen({

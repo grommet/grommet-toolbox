@@ -1,6 +1,26 @@
 import path from 'path';
 import fs from 'fs';
 import deepAssign from 'deep-assign';
+import yargs from 'yargs';
+
+const argv = yargs
+  .option('minify', {
+    type: 'boolean',
+    default: true
+  })
+  .option('open', {
+    type: 'boolean',
+    default: true
+  })
+  .option('preprocess', {
+    type: 'boolean',
+    default: true
+  })
+  .argv;
+
+const deprecated = (name, warning) => {
+  console.warn(`[grommet-toolbox] DEPRECATED: ${name}. ${warning}`);
+};
 
 let options;
 export function getOptions (opts) {
@@ -96,6 +116,24 @@ export function getOptions (opts) {
         loader: 'style-loader!css-loader'
       }
     );
+
+    // Argv Deprecation warnings
+    if (argv.skipPreprocess) {
+      deprecated('skipPreprocess', 'Use --no-preprocess instead.');
+      argv.preprocess = false;
+    }
+
+    if (argv.skipOpen) {
+      deprecated('skipOpen', 'Use --no-open instead.');
+      argv.open = false;
+    }
+
+    if (argv.skipMinify) {
+      deprecated('skipMinify', 'Use --no-minify instead.');
+      argv.minify = false;
+    }
+
+    options.argv = deepAssign({}, options.argv, argv);
   }
 
   return options;

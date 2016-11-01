@@ -54,9 +54,12 @@ Grommet-toolbox augments gulp object with these additional tasks:
 * **gulp jslint**: uses `jsAssets` and `testPaths` options to lint your JavaScript code.
 * **gulp dev**: starts a webpack dev server with hot reloading. See options for example configuration.
   * `--config`: Set the path of the config file to use.
-  * `--skip-preprocess`: Skips preprocess tasks.
-  * `--skip-open`: Skips opening dev server url in a browser.
+  * `--no-preprocess`: Skips preprocess tasks.
+  * `--no-open`: Skips opening dev server url in a browser.
 * **gulp dist**: prepares your application/library for production.
+  * `--config`: Set the path of the config file to use.
+  * `--no-preprocess`: Skips preprocess tasks.
+  * `--no-minify`: Skips minifying JS code.
 * **gulp sync**: uses `sync` option to sync distribution content to a remote server.
 * **gulp test**: uses `testPaths` option to execute tests based on Tape.
 * **gulp test:watch**: runs tests and watch for changes to execute the tests again.
@@ -100,6 +103,7 @@ grommet-toolbox will look into your application's root folder and extract the co
 
 | property      | type          | description     | default      | example    |
 | ------------- |---------------|-----------------|------------- |------------|
+| argv          | object        | Optional. Default cli args set on gulp tasks. *See above.* | `{}` | `{open: false}` |
 | base          | string        | Optional. Base working directory           | process.cwd()      | `base: '.'` |
 | copyAssets    | array         | Optional. Assets to be copied to the distribution folder |  undefined  | [See copyAssets WIKI](https://github.com/grommet/grommet-toolbox/wiki/copyAssets-WIKI)  |
 | eslintConfigPath | string     | Optional. Path to your custom eslint config file  | undefined          | `eslintConfigPath: path.resolve(__dirname, '../.eslintrc')`        |

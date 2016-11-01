@@ -2,9 +2,7 @@ require('babel-register');
 
 import webpack from 'webpack';
 import deepAssign from 'deep-assign';
-import yargs from 'yargs';
 import unique from './utils/unique';
-const argv = yargs.argv;
 
 import gulpOptionsBuilder from './gulp-options-builder';
 const options = gulpOptionsBuilder();
@@ -22,7 +20,7 @@ config.plugins = [
   new webpack.optimize.OccurenceOrderPlugin()
 ];
 
-if (!argv.skipMinify) {
+if (options.argv.minify) {
   config.plugins.push(new webpack.optimize.UglifyJsPlugin({
     compress: {
       warnings: false
