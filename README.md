@@ -103,6 +103,7 @@ grommet-toolbox will look into your application's root folder and extract the co
 
 | property      | type          | description     | default      | example    |
 | ------------- |---------------|-----------------|------------- |------------|
+| argv          | object        | Optional. Default cli args set on gulp tasks. *See above.* | `{}` | `{open: false}` |
 | base          | string        | Optional. Base working directory           | process.cwd()      | `base: '.'` |
 | copyAssets    | array         | Optional. Assets to be copied to the distribution folder |  undefined  | [See copyAssets WIKI](https://github.com/grommet/grommet-toolbox/wiki/copyAssets-WIKI)  |
 | eslintConfigPath | string     | Optional. Path to your custom eslint config file  | undefined          | `eslintConfigPath: path.resolve(__dirname, '../.eslintrc')`        |
