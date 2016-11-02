@@ -18,6 +18,9 @@ const argv = yargs
   })
   .argv;
 
+delete argv._;
+delete argv.$0;
+
 const deprecated = (name, warning) => {
   console.warn(`[grommet-toolbox] DEPRECATED: ${name}. ${warning}`);
 };
