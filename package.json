@@ -1,6 +1,6 @@
 {
   "name": "grommet-toolbox",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "main": "lib/index.js",
   "description": "Developer Environment for Grommet applications",
   "authors": [
@@ -48,7 +48,7 @@
     "mkdirp": "^0.5.1",
     "node-sass": "^3.4.2",
     "path-is-absolute": "^1.0.0",
-    "react-hot-loader": "^1.3.0",
+    "react-hot-loader": "^3.0.0-beta.6",
     "rsync": "^0.5.0",
     "run-sequence": "^1.1.5",
     "sass-lint": "^1.8.1",

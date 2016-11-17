@@ -16,6 +16,7 @@ delete options.webpack.entry;
 const protocol = (options.devServer && options.devServer.https) ? 'https' : 'http';
 const config = deepAssign({
   entry: [
+    'react-hot-loader/patch',
     'webpack-dev-server/client/index.js?' + protocol + '://' + (options.devServerHost || 'localhost') + ':' + (options.devServerPort || '8080'),
     'webpack/hot/dev-server',
     './' + options.mainJs
@@ -34,9 +35,7 @@ const config = deepAssign({
 // Ensure dev loaders are used.
 config.module.loaders = config.module.loaders.map(entry => {
   let {loader} = entry;
-  if (/babel/.test(loader)) {
-    loader = loader.replace(/(babel)/, 'react-hot!$1');
-  } else if (/sass/.test(loader)) {
+  if (/sass/.test(loader)) {
     // returns style!css?sourceMap!sass?sourceMap&outputStyle...
     loader = loader.replace(/css!/, 'css?sourceMap!');
     loader = loader.replace(/css$/, 'css?sourceMap');

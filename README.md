@@ -119,7 +119,7 @@ grommet-toolbox will look into your application's root folder and extract the co
 | env | object | Optional. Adds environment variables for Node | undefined | `{ DEV_MODE: 'true'}` |
 | icons | object | Optional. Converts raw icons to a Grommet icon | undefined | [See icon WIKI](https://github.com/grommet/grommet-toolbox/wiki/icon-WIKI) |
 | jsAssets | array | Required. Location of your JavaScript Assets | [] | `jsAssets: ['src/js/**/*.js']` |
-| jsLoader | object | Optional. If you want to use another webpack loader for your JavaScript Assets | react-loader | `{ test: /\.jsx?$/, loader: 'react-hot!babel-loader', exclude: /(node_modules|bower_components|src\/lib)/ }` |
+| jsLoader | object | Optional. If you want to use another webpack loader for your JavaScript Assets | react-loader | `{ test: /\.jsx?$/, loader: 'babel-loader', exclude: /(node_modules|bower_components|src\/lib)/ }` |
 | lintCache |  boolean | Optional. If true, it will skip caching for linters (build time increases). | true | `lintCache: false` |
 | mainJs |  string | Required. Location of your main JavaScript file | undefined | `mainJs: 'src/js/index.js'` |
 | preCommitTasks | array | Optional.  The gulp tasks to run as git pre-commit hooks | jslint, scsslint, test | `['jslint','scsslint','test']` |
