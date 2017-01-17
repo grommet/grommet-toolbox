@@ -2,6 +2,8 @@
 
 [![Dependency Status](https://david-dm.org/grommet/grommet-toolbox.svg)](https://david-dm.org/grommet/grommet-toolbox)  [![devDependency Status](https://david-dm.org/grommet/grommet-toolbox/dev-status.svg)](https://david-dm.org/grommet/grommet-toolbox#info=devDependencies)
 
+[DEPRECATED]: Please use `grommet pack` and `grommet check` available in the new [grommet-cli](https://github.com/grommet/grommet-cli)
+
 Developer Environment for Grommet applications with the following built-in features:
 
 * Ability to create a production ready distribution with minified JavaScript and CSS
