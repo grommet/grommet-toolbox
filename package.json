@@ -62,5 +62,8 @@
   },
   "scripts": {
     "build": "node_modules/.bin/babel src --out-dir lib --copy-files --loose-mode"
+  },
+  "devDependencies": {
+    "webpack-dashboard": "^0.1.6"
   }
 }

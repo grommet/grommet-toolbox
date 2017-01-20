@@ -46,6 +46,7 @@ export function devTasks (gulp, opts) {
     const devServerConfig = {
       contentBase: options.dist,
       hot: !options.devServerDisableHot,
+      quiet: options.webpackDashboard,
       inline: true,
       stats: {
         colors: true

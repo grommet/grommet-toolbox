@@ -5,6 +5,10 @@ import deepAssign from 'deep-assign';
 import unique from './utils/unique';
 
 import gulpOptionsBuilder from './gulp-options-builder';
+
+import Dashboard from 'webpack-dashboard';
+import DashboardPlugin from 'webpack-dashboard/plugin';
+
 const options = gulpOptionsBuilder();
 
 const env = deepAssign({}, options.env, {
@@ -50,6 +54,12 @@ config.plugins = [
   new webpack.HotModuleReplacementPlugin(),
   new webpack.DefinePlugin(env)
 ];
+
+if (options.webpackDashboard) {
+
+  const dashboard = new Dashboard(Object(options.webpackDashboard));
+  config.plugins.push(new DashboardPlugin(dashboard.setData));
+}
 
 if (options.webpack.plugins) {
   options.webpack.plugins.forEach((plugin) =>
