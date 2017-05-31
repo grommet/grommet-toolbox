@@ -25,17 +25,15 @@ export function testTasks (gulp, opts) {
       return gulp.src(options.testPaths)
         .pipe(gulpif(!watch, envs))
         .pipe(jest({
-          config: {
-            modulePathIgnorePatterns: [
-              "<rootDir>/dist/",
-              "<rootDir>/templates/"
-            ],
-            testPathIgnorePatterns: options.testPaths.filter(
-              (path) => path.startsWith('!')
-            ).map((path) => path.substring(1)),
-            rootDir: options.base || process.cwd(),
-            verbose: true
-          },
+          modulePathIgnorePatterns: [
+            "<rootDir>/dist/",
+            "<rootDir>/templates/"
+          ],
+          testPathIgnorePatterns: options.testPaths.filter(
+            (path) => path.startsWith('!')
+          ).map((path) => path.substring(1)),
+          rootDir: options.base || process.cwd(),
+          verbose: true,
           ...options.argv
         }))
         .on('error', (error) => {
@@ -53,17 +51,15 @@ export function testTasks (gulp, opts) {
       return gulp.src(options.testPaths)
         .pipe(gulpif(!watch, envs))
         .pipe(jest({
-          config: {
-            modulePathIgnorePatterns: [
-              "<rootDir>/dist/",
-              "<rootDir>/templates/"
-            ],
-            testPathIgnorePatterns: options.testPaths.filter(
-              (path) => path.startsWith('!')
-            ).map((path) => path.substring(1)),
-            rootDir: options.base || process.cwd(),
-            updateSnapshot: true
-          },
+          modulePathIgnorePatterns: [
+            "<rootDir>/dist/",
+            "<rootDir>/templates/"
+          ],
+          testPathIgnorePatterns: options.testPaths.filter(
+            (path) => path.startsWith('!')
+          ).map((path) => path.substring(1)),
+          rootDir: options.base || process.cwd(),
+          updateSnapshot: true,
           ...options.argv
         }))
         .on('error', (error) => {
@@ -88,19 +84,17 @@ export function testTasks (gulp, opts) {
       return gulp.src(options.testPaths)
         .pipe(envs)
         .pipe(jest({
-          config: {
-            collectCoverageFrom: options.jsAssets,
-            collectCoverage: true,
-            coverageReporters: ['lcov'],
-            modulePathIgnorePatterns: [
-              "<rootDir>/dist/",
-              "<rootDir>/templates/"
-            ],
-            testPathIgnorePatterns: options.testPaths.filter(
-              (path) => path.startsWith('!')
-            ).map((path) => path.substring(1)),
-            rootDir: options.base || process.cwd()
-          },
+          collectCoverageFrom: options.jsAssets,
+          collectCoverage: true,
+          coverageReporters: ['lcov'],
+          modulePathIgnorePatterns: [
+            "<rootDir>/dist/",
+            "<rootDir>/templates/"
+          ],
+          testPathIgnorePatterns: options.testPaths.filter(
+            (path) => path.startsWith('!')
+          ).map((path) => path.substring(1)),
+          rootDir: options.base || process.cwd(),
           ...options.argv
         }))
         .on('error', (error) => {
